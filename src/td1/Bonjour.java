@@ -185,13 +185,13 @@ public class Bonjour {
 
 	}
 
-	private static float exercice7() {
+	private static double exercice7() {
 
 		// Prise en charge d'un réel
 		while (true) {
 			try {
 				Scanner sc = new Scanner(System.in);
-				Float entier = sc.nextFloat();
+				double entier = sc.nextDouble();
 				return entier;
 			} catch (InputMismatchException ex) {
 				System.out.println(ex);
@@ -215,6 +215,7 @@ public class Bonjour {
 		int age = 2017 - Saisie.saisieEntier();
 		//int age = 2017 - exercice5_b();
 
+		// Attention %d implique d'avoir un entier
 		System.out.printf("Bonjour %s %s, tu as %d ans.\n", prenom.substring(0, 1).toUpperCase() + prenom.substring(1), nom.toUpperCase(), age);
 
 	}
