@@ -26,7 +26,16 @@ public class Tables {
 
 	// Exercice 12
 	public static int[] copieTable(int[] tab) {
-		int copie[] = tab;
+		
+		// NOTA :
+		// int copie[] = tab; crée une référence
+		// vers le même objet, ce n'est pas une copie!!!
+		
+		int length = tab.length;
+		int copie[] = new int [length];
+		for (int i = 0; i < length; i++) {
+			copie[i] = tab[i];
+		}
 		return copie;
 	}
 
@@ -76,9 +85,9 @@ public class Tables {
 		// Copie de tableaux
 		int[] array = Arrays.copyOf(tab, tab.length);
 		// Tri des valeurs
-		//afficheTable(array);
+		afficheTable(array);
 		Arrays.sort(array);
-		//afficheTable(array);
+		afficheTable(array);
 		// Position d'une valeur (Ajout de 1 pour avoir une position
 		// donnée de manière plus naturelle
 		return Arrays.binarySearch(array, valeur) + 1;

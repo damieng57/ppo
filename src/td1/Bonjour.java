@@ -107,13 +107,13 @@ public class Bonjour {
 
 		System.out.println("Indiquer votre année de naissance");
 		//int age = 2017 - exercice5_a();
-		int age = 2017 - exercice5_b();
+		int age = 2017 - exercice5b();
 
 		System.out.printf("Bonjour %s %s, tu as %d ans.\n", prenom.substring(0, 1).toUpperCase() + prenom.substring(1), nom.toUpperCase(), age);
 
 	}
 
-	private static int exercice5_a() throws IOException {
+	private static int exercice5a() throws IOException {
 
 		// Si on entre une chaîne de caractère ou un réel, on leve l'exception NumberFormatException
 		InputStreamReader isr = new InputStreamReader(System.in);
@@ -124,7 +124,7 @@ public class Bonjour {
 
 	}
 
-	private static int exercice5_b() {
+	private static int exercice5b() {
 
 		// Si on entre une chaîne de caractère ou un réel, on leve l'exception InputMismatchException
 		Scanner sc = new Scanner(System.in);
@@ -147,13 +147,13 @@ public class Bonjour {
 
 		System.out.println("Indiquer votre année de naissance");
 		//int age = 2017 - exercice6_a();
-		int age = 2017 - exercice6_b();
+		int age = 2017 - exercice6b();
 
 		System.out.printf("Bonjour %s %s, tu as %d ans.\n", prenom.substring(0, 1).toUpperCase() + prenom.substring(1), nom.toUpperCase(), age);
 
 	}
 
-	private static int exercice6_a() throws IOException {
+	private static int exercice6a() throws IOException {
 
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader bf = new BufferedReader(isr);
@@ -170,7 +170,7 @@ public class Bonjour {
 
 	} 
 
-	private static int exercice6_b() {
+	private static int exercice6b() {
 
 		// On gère l'exception InputMismatchException
 		while (true) {
