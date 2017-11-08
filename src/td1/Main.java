@@ -12,19 +12,34 @@ import java.io.IOException;
 public class Main {
 
 	public static void main(String [] args) throws IOException{
-		//Bonjour.exercice8();
+		System.out.println("Exercice 10");
+		Bonjour.exercice10();
 		
 		// Pour exercices 11 à 15
+		System.out.println("\nExercices 11 à 14");
+		System.out.println("Renseigner 5 nombres : ");
 		int tab [] = Tables.saisieTable();
+		int tab2 [] = Tables.copieTable(tab);
 		
 		// Test des exercices 11 à 14
-		//Tables.afficheTable(tab);
-		//Tables.triAbulles(tab);
-		//Tables.afficheTable(tab);
-		//System.out.println("La valeur recherchée est en position " + Tables.position(tab, 5));
+		System.out.println("Afficher la table 1");
+		Tables.afficheTable(tab);
+		System.out.println("Afficher la table 2");
+		Tables.afficheTable(tab2);
 		
-		//Tables.afficheTable(tab);
-		System.out.println(Tables.exercice15(tab, 5));
+		// Tri de la table 1
+		System.out.println("\nTri de la table 1");
+		Tables.triAbulles(tab);
+		
+		System.out.println("\nAfficher la table 1");
+		Tables.afficheTable(tab);
+		System.out.println("\nAfficher la table 2");
+		Tables.afficheTable(tab2);
+		
+		System.out.println("\nLa valeur recherchée (5) est en position " + Tables.position(tab, 5)+"\n");
+		
+		System.out.println("Exercice 15 (reprends la liste 2 des exercices précédents)");
+		System.out.println(Tables.exercice15(tab2, 5));
 	}
 	
 }

@@ -48,31 +48,16 @@ public class Saisie {
 	public static String saisieChaine() {
 
 		// Prise en charge d'une chaîne
-		while (true) {
-			try {
-				Scanner sc = new Scanner(System.in);
-				String chaine = sc.next();
-				return chaine;
-			} catch (InputMismatchException ex) {
-				System.out.println(ex);
-			}
-		}
-
+		Scanner sc = new Scanner(System.in);
+		String chaine = sc.next();
+		return chaine;
 	}
 
 	public static int saisieEntier(String texte) {
 
 		System.out.println(texte);
 		// On gère l'exception InputMismatchException
-		while (true) {
-			try {
-				Scanner sc = new Scanner(System.in);
-				Integer entier = sc.nextInt();
-				return entier;
-			} catch (InputMismatchException ex) {
-				System.out.println(ex);
-			}
-		}
+		return saisieEntier();
 
 	}
 
@@ -80,15 +65,7 @@ public class Saisie {
 
 		System.out.println(texte);
 		// Prise en charge d'un réel
-		while (true) {
-			try {
-				Scanner sc = new Scanner(System.in);
-				Float reel = sc.nextFloat();
-				return reel;
-			} catch (InputMismatchException ex) {
-				System.out.println(ex);
-			}
-		}
+		return saisieReel();
 
 	}
 
@@ -96,15 +73,7 @@ public class Saisie {
 
 		System.out.println(texte);
 		// Prise en charge d'une chaîne
-		while (true) {
-			try {
-				Scanner sc = new Scanner(System.in);
-				String chaine = sc.next();
-				return chaine;
-			} catch (InputMismatchException ex) {
-				System.out.println(ex);
-			}
-		}
+		return saisieChaine();
 
 	}
 }
