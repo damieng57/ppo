@@ -185,7 +185,7 @@ public class Bonjour {
 
 	}
 
-	private static float exercice7() {
+	public static float exercice7() {
 
 		// Prise en charge d'un réel
 		while (true) {
