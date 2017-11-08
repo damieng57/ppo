@@ -10,17 +10,21 @@ import java.io.IOException;
  * @author Damien
  */
 public class Main {
-	
+
 	public static void main(String [] args) throws IOException{
-		Bonjour.exercice6();
-		//int tab [] = Tables.saisieTable();
+		//Bonjour.exercice8();
+		
+		// Pour exercices 11 à 15
+		int tab [] = Tables.saisieTable();
+		
+		// Test des exercices 11 à 14
 		//Tables.afficheTable(tab);
 		//Tables.triAbulles(tab);
 		//Tables.afficheTable(tab);
-		//System.out.println("La valeur recherch�e est en position " + Tables.position(tab, 5));
+		//System.out.println("La valeur recherchée est en position " + Tables.position(tab, 5));
 		
 		//Tables.afficheTable(tab);
-		//System.out.println(Tables.exercice15(tab, 5));
+		System.out.println(Tables.exercice15(tab, 5));
 	}
 	
 }
