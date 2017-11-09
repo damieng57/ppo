@@ -1,69 +1,99 @@
 package td2;
 
 import java.util.ArrayList;
+import td2.Exceptions.NoMoneyException;
 
 public class Portefeuille {
 
 	// Attributs
 	// Liste des devises
 	private ArrayList<Devise> ListeDevise;
-	private int NbreDevise = 0;
 
 	// Constructeur
 	public Portefeuille() {
 		ListeDevise = new ArrayList<>();
 	}
 
+	// Methodes private
+	// Uniquement présente dans un but fonctionnelle et
+	// pour diviser en éléments plus simple
+	private Devise chercherDevise(NomDevises nomDevise) {
+		for (Devise devise : ListeDevise) {
+			if (devise.getDevise().equals(nomDevise)) {
+				return devise;
+			}
+		}
+		return null;
+	}
+
+	private boolean existeDevise(Devise deviseAcherche) {
+		for (Devise devise : ListeDevise) {
+			if (devise.equals(deviseAcherche)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Methodes publiques
+	// Fonction pour obtenir le nombre de devises dans le porte-feuille
+	public int nbreDevise() {
+		return this.ListeDevise.size();
+	}
+
+	// Ajouter une devise dans le porte-feuille
 	public void ajouterDevise(Devise devise) {
-		// Ajouter des devises à ListeDevise
-		ListeDevise.add(devise);
+		/* Ajoute des devises à ListeDevise
+		* Rien ne se passe si la devise existe
+		* Pas de levée d'exception pour éviter des try/catch partout
+		 */
+		if (!existeDevise(devise)) {
+			ListeDevise.add(devise);
+		}
 	}
 
+	// Supprimer une devise dans le porte-feuille
 	public void supprimerDevise(Devise devise) {
-		// Supprimer des devises à ListeDevise
-		// Que se passe-t-il si la devise n'existe pas?
-		ListeDevise.remove(devise);
+		/* Supprimer des devises à ListeDevise
+		* Ne supprime que si la devise existe
+		* Sinon, rien ne se passe
+		 */
+		if (existeDevise(devise)) {
+			ListeDevise.remove(devise);
+		}
+
 	}
 
-	// Modifier les paramètres à utiliser - Ce n'est pas devise mais nomDevises
-	public void payerAvecDevise(Devise devise, int montant) {
+	// Sortir des devises du porte-feuille
+	public void sortirDeviseDuPortefeuille(NomDevises nomDevise, int montant) throws NoMoneyException {
 		// Reduire le montant sur la devise selectionnée
 		try {
-			int indexCourant = ListeDevise.indexOf(devise);
-			Devise deviseCourante = ListeDevise.get(indexCourant);
+			Devise deviseCourante = chercherDevise(nomDevise);
 			int solde = deviseCourante.getMontant() - montant;
-
 			if (solde > 0) {
 				deviseCourante.setMontant(deviseCourante.getMontant() - montant);
 			} else {
-				// Levée une exception !!
-				System.out.println("Pas assez d'argent pour payer !");
+				// On a la devise mais pas assez
+				throw new NoMoneyException();
 			}
-
-		} catch (ArrayIndexOutOfBoundsException ex) {
-			// Levée une exception !!
-			System.out.println("La devise n'est pas dans le portefeuille");
+		} catch (NullPointerException e) {
+			// Car on n'a même pas la devise en portefeuille
+			throw new NoMoneyException();
 		}
-
 	}
 
-	public void encaisserAvecDevise(Devise devise, int montant) {
+	// Placer des devises dans le porte-feuille
+	public void mettreDeviseDansPortefeuille(NomDevises nomDevise, int montant) {
 		// Augmenter le montant sur la devise selectionnée
-
+		Devise deviseCourante = chercherDevise(nomDevise);
 		try {
-			int indexCourant = ListeDevise.indexOf(devise);
-			Devise deviseCourante = ListeDevise.get(indexCourant);
 			deviseCourante.setMontant(deviseCourante.getMontant() + montant);
-
-		} catch (ArrayIndexOutOfBoundsException ex) {
-			// Levée une exception !!
-			System.out.println("La devise n'est pas dans le portefeuille, ajout de la devise");
-			devise.setMontant(montant);
-			ajouterDevise(devise);
+		} catch (NullPointerException e) {
+			ajouterDevise(new Devise(nomDevise, montant));
 		}
-
 	}
 
+	// Afficher les devises présentes dans le portefeuille
 	public void afficher() {
 		// Afficher les devises presentent dans le portefeuille
 		for (Devise devise : ListeDevise) {
@@ -71,4 +101,13 @@ public class Portefeuille {
 		}
 	}
 
+	// Afficher le montant présent pour une devise
+	public int montantDevise(NomDevises nomDevise) {
+		// Afficher les devises presentent dans le portefeuille
+		try {
+			return chercherDevise(nomDevise).getMontant();
+		} catch (NullPointerException e) {
+			return 0;
+		}
+	}
 }

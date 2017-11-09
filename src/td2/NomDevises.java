@@ -1,7 +1,7 @@
 package td2;
 
 public enum NomDevises {
-	EURO("€"), DOLLAR("$"), LIVRE("£");
+	EURO("€"), DOLLAR("$"), LIVRE("£"), YUAN("RMB");
 	
 	private String symbol;
 	

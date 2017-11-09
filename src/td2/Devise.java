@@ -4,16 +4,16 @@ public class Devise {
 
 	// Attributs
 	int montant = 0;
-	NomDevises devise;
+	NomDevises nomDevise;
 	
 	//Constructeur
 	public Devise(){
-		this.devise = NomDevises.EURO;
+		this.nomDevise = NomDevises.EURO;
 		this.montant = 0;
 	}
 		
 	public Devise(NomDevises devise, int montant){
-		this.devise = devise;
+		this.nomDevise = devise;
 		this.montant = montant;
 	}
 	
@@ -25,24 +25,24 @@ public class Devise {
 		this.montant = montant;
 	}
 	
-	public String getDevise() {
-		return this.devise.toString();
+	public NomDevises getDevise() {
+		return this.nomDevise;
 	}
 	
-	public void setDevise(NomDevises listeDevises) {
-		this.devise = listeDevises;
+	public void setNomDevise(NomDevises listeDevises) {
+		this.nomDevise = listeDevises;
 	}
 	
 	// Fonctions speciales
 	@Override
 	public String toString(){
-		return this.montant+devise.toString();
+		return this.montant+nomDevise.toString();
 	}
 	
 	@Override
 	public boolean equals(Object o){
 		Devise d = (Devise) o;
-		return d.devise == this.devise;
+		return d.getDevise() == this.nomDevise;
 	}
 	
 

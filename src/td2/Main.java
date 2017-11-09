@@ -1,5 +1,7 @@
 package td2;
 
+import td2.Exceptions.NoMoneyException;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -9,34 +11,51 @@ public class Main {
 		// Générer des devises
 		Devise maDevise1 = new Devise(NomDevises.EURO, 50);
 		Devise maDevise2 = new Devise(NomDevises.DOLLAR, 250);
-		Devise maDevise3 = new Devise(NomDevises.LIVRE, 500);
 		
 		// Ajout des devises
 		porteFeuilleDePatrick.ajouterDevise(maDevise1);
-		System.out.println(maDevise1.toString()+" Ajout de la devise € au portefeuille");
+		System.out.println(maDevise1.toString()+" - Ajout de 50€ au portefeuille\n");
 		porteFeuilleDePatrick.ajouterDevise(maDevise2);
-		System.out.println(maDevise2.toString()+" Ajout de la devise $ au portefeuille");
+		System.out.println(maDevise2.toString()+" - Ajout de 250$ au portefeuille\n");
 		
 		// On essaie de payer plus que ce que l'on a dans le porte feuille
-		porteFeuilleDePatrick.payerAvecDevise(maDevise2, 350);
+		System.out.println("On veut utiliser 350$ mais nous n'avons que 250$ au portefeuille");
+		try {
+			porteFeuilleDePatrick.sortirDeviseDuPortefeuille(NomDevises.DOLLAR, 350);
+		} catch (NoMoneyException ex) {
+			
+		}
 		
 		// On ajoute pour payer
-		porteFeuilleDePatrick.encaisserAvecDevise(maDevise2, 350);
+		System.out.println("On ajoute 350$ au portefeuille, nous avons maintenant 600$\n");
+		porteFeuilleDePatrick.mettreDeviseDansPortefeuille(NomDevises.DOLLAR, 350);
 		
 		// On paye avec ce que l'on a dans le porte feuille
-		porteFeuilleDePatrick.payerAvecDevise(maDevise2, 100);
-		
-		System.out.println("************");
-		porteFeuilleDePatrick.afficher();
+		System.out.println("On dépense 100$, il reste 500$ au portefeuille\n");
+		try {
+			porteFeuilleDePatrick.sortirDeviseDuPortefeuille(NomDevises.DOLLAR, 100);
+		} catch (NoMoneyException ex) {
+			
+		}
 		
 		// On tente de payer avec une devise que l'on à pas
-		porteFeuilleDePatrick.payerAvecDevise(maDevise3, 200);
+		System.out.println("On veut payer 200£, mais nous n'avons pas de livre dans le portefeuille\n");
+		try {
+			porteFeuilleDePatrick.sortirDeviseDuPortefeuille(NomDevises.LIVRE, 200);
+		} catch (NoMoneyException ex) {
+			System.out.println("La devise n'est pas présente au portefeuille");
+		}
 		
 		// On recupère une devise que l'on à pas, elle s'ajoute au porte-feuille
-		porteFeuilleDePatrick.encaisserAvecDevise(maDevise3, 300);
+		System.out.println("On ajoute 300£ au portefeuille\n");
+		porteFeuilleDePatrick.mettreDeviseDansPortefeuille(NomDevises.LIVRE, 300);
 		
-		System.out.println("************");
+		System.out.println("Nous avons maintenant dans le portefeuille\n");
 		porteFeuilleDePatrick.afficher();
+		
+		System.out.println("Il y a donc "+porteFeuilleDePatrick.nbreDevise()+" devise(s)");
+		
+		System.out.println(porteFeuilleDePatrick.montantDevise(NomDevises.YUAN));
 
 	}
 
