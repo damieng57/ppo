@@ -10,13 +10,18 @@ public class Main {
 		
 		// Générer des devises
 		Devise maDevise1 = new Devise(NomDevises.EURO, 50);
-		Devise maDevise2 = new Devise(NomDevises.DOLLAR, 250);
+		Devise maDevise2 = new Devise(NomDevises.DOLLAR, 150);
 		
 		// Ajout des devises
 		porteFeuilleDePatrick.ajouterDevise(maDevise1);
 		System.out.println(maDevise1.toString()+" - Ajout de 50€ au portefeuille\n");
 		porteFeuilleDePatrick.ajouterDevise(maDevise2);
-		System.out.println(maDevise2.toString()+" - Ajout de 250$ au portefeuille\n");
+		System.out.println(maDevise2.toString()+" - Ajout de 150$ au portefeuille\n");
+		
+		// On essaie d'ajouter un devise déjà présente
+		Devise maDevise3 = new Devise(NomDevises.DOLLAR, 100);
+		porteFeuilleDePatrick.ajouterDevise(maDevise3);
+		System.out.println(maDevise3.toString()+" - Ajout de 100$ au portefeuille\n");
 		
 		// On essaie de payer plus que ce que l'on a dans le porte feuille
 		System.out.println("On veut utiliser 350$ mais nous n'avons que 250$ au portefeuille");

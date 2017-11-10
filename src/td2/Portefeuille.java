@@ -16,7 +16,7 @@ public class Portefeuille {
 
 	// Methodes private
 	// Uniquement présente dans un but fonctionnelle et
-	// pour diviser en éléments plus simple
+	// pour diviser le code en élément simple
 	private Devise chercherDevise(NomDevises nomDevise) {
 		for (Devise devise : ListeDevise) {
 			if (devise.getDevise().equals(nomDevise)) {
@@ -44,11 +44,13 @@ public class Portefeuille {
 	// Ajouter une devise dans le porte-feuille
 	public void ajouterDevise(Devise devise) {
 		/* Ajoute des devises à ListeDevise
-		* Rien ne se passe si la devise existe
-		* Pas de levée d'exception pour éviter des try/catch partout
+		* Si la devise existe, on ajoute simplement
+		* le montant à la devise en portefeuille
 		 */
 		if (!existeDevise(devise)) {
 			ListeDevise.add(devise);
+		} else {
+			mettreDeviseDansPortefeuille(devise.getDevise(), devise.getMontant());
 		}
 	}
 
@@ -61,7 +63,6 @@ public class Portefeuille {
 		if (existeDevise(devise)) {
 			ListeDevise.remove(devise);
 		}
-
 	}
 
 	// Sortir des devises du porte-feuille
