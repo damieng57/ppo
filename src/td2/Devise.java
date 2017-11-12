@@ -35,8 +35,8 @@ public class Devise {
 	
 	// Fonctions speciales
 	@Override
-	public String toString(){
-		return this.montant+nomDevise.toString();
+	public String toString() {
+		return String.format("Montant: %s - Devise: %s%n", this.getMontant(), this.getDevise());
 	}
 	
 	@Override

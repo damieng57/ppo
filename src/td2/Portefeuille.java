@@ -111,4 +111,8 @@ public class Portefeuille {
 			return 0;
 		}
 	}
+
+	public ArrayList<Devise> getListeDevise() {
+		return ListeDevise;
+	}
 }
