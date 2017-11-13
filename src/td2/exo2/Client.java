@@ -17,9 +17,15 @@ public class Client {
 			throw new UndefinedClientException();
 		} else {
 			this.setNomClient(nomClient);
-			this.setNomClient(prenomClient);
+			this.setPrenomClient(prenomClient);
 			this.setCaClient(caClient);
 		}
+	}
+	
+	@Override
+	public boolean equals(Object o){
+		Client c = (Client) o;
+		return c.getCaClient() == this.caClient;
 	}
 
 	public void affiche() {
