@@ -1,4 +1,4 @@
-package td2;
+package td2.exo1;
 
 import java.util.Comparator;
 

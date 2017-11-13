@@ -1,6 +1,6 @@
-package td2;
+package td2.exo1;
 
-import td2.Exceptions.NoMoneyException;
+import td2.exo1.Exceptions.NoMoneyException;
 
 public class Devise {
 

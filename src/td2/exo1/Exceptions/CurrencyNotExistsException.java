@@ -1,4 +1,4 @@
-package td2.Exceptions;
+package td2.exo1.Exceptions;
 
 public class CurrencyNotExistsException extends RuntimeException {
 
