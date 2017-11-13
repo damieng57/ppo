@@ -2,11 +2,13 @@ package td2;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import td2.Exceptions.CurrencyNotExistsException;
 import td2.Exceptions.NoMoneyException;
 
 public class Main {
 
 	public static void main(String[] args) {
+		// Je mets un bloc try pour simplifier la création des devises
 		// Générer un portefeuille
 		Portefeuille porteFeuilleDePatrick = new Portefeuille();
 
@@ -30,7 +32,7 @@ public class Main {
 		try {
 			porteFeuilleDePatrick.sortirDeviseDuPortefeuille(NomDevises.DOLLAR, 350);
 		} catch (NoMoneyException ex) {
-
+			ex.getMessage();
 		}
 
 		// On ajoute pour payer
@@ -42,7 +44,7 @@ public class Main {
 		try {
 			porteFeuilleDePatrick.sortirDeviseDuPortefeuille(NomDevises.DOLLAR, 100);
 		} catch (NoMoneyException ex) {
-
+			ex.getMessage();
 		}
 
 		// On tente de payer avec une devise que l'on à pas
@@ -50,7 +52,7 @@ public class Main {
 		try {
 			porteFeuilleDePatrick.sortirDeviseDuPortefeuille(NomDevises.LIVRE, 200);
 		} catch (NoMoneyException ex) {
-			System.out.println("La devise n'est pas présente au portefeuille");
+			ex.getMessage();
 		}
 
 		// On recupère une devise que l'on à pas, elle s'ajoute au porte-feuille
@@ -62,7 +64,12 @@ public class Main {
 
 		System.out.println("Il y a donc " + porteFeuilleDePatrick.nbreDevise() + " devise(s)");
 
+		try {
 		System.out.println(porteFeuilleDePatrick.montantDevise(NomDevises.YUAN));
+		} catch (CurrencyNotExistsException ex){
+			System.out.println("Si on tente d'afficher une devise qui n'existe pas dans le portefeuille");
+			System.out.println(ex.getMessage());
+		}
 
 		// Trie du portefeuille
 		// On souhaite trier le portefeuille. De base, Collections.sort, on a donc dans la
@@ -71,17 +78,14 @@ public class Main {
 		// Il faut dire à Java sur quoi porte la comparaison. Ici les devises.
 		// On va comparer les symboles des devises qui sont des chaînes de caractère grâce à
 		// un comparator, c'est à dire une classe qui implemente l'interface Comparator<>
-
 		ArrayList<Devise> mesDevisesdansPorteFeuilleDePatrick = porteFeuilleDePatrick.getListeDevise();
-		
+
 		// NOTA : on ne peut pas écrire directement :
 		// System.out.println(porteFeuilleDePatrick.getListeDevise());
 		// Sinon, on obtiendra uniquement l'adresse en mémoire de l'ArrayList
 		System.out.println(mesDevisesdansPorteFeuilleDePatrick);
 		Collections.sort(mesDevisesdansPorteFeuilleDePatrick, new DeviseComparator());
 		System.out.println(mesDevisesdansPorteFeuilleDePatrick);
-
-
 	}
 
 }
