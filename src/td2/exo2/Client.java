@@ -1,6 +1,8 @@
 package td2.exo2;
 
 import td1.Saisie;
+import td2.exo1.Devise;
+import td2.exo1.NomDevises;
 import td2.exo2.Exceptions.UndefinedClientException;
 
 /**
@@ -11,40 +13,30 @@ public class Client {
 
 	private String nomClient;
 	private String prenomClient;
-	private double caClient;
+	//private double caClient;
+	private Devise caClient;
+	
+	// NOTA : J'ai volontairement supprimer les méthodes saisie et affiche
+	// car je n'en ai pas, à mon sens, l'utilité
+	
 
 	public Client(String nomClient, String prenomClient, double caClient) {
 		if (nomClient.equals("") || prenomClient.equals("")) {
 			throw new UndefinedClientException();
 		} else {
-			this.setNomClient(nomClient);
-			this.setPrenomClient(prenomClient);
-			this.setCaClient(caClient);
+			if (caClient < 1000){
+				this.setNomClient(nomClient);
+				this.setPrenomClient(prenomClient);
+				this.caClient = new Devise(NomDevises.EURO, caClient);
+			} else {
+				//ClientPrivilegie(this(nomClient, prenomClient, caClient));
+			}
 		}
-	}
-
-//	@Override
-//	public boolean equals(Object o){
-//		Client c = (Client) o;
-//		return c.getCaClient() == this.caClient;
-//	}
-
-	public void affiche() {
-		// TODO
-	}
-
-	// Methode statique pour créer un client
-	public static Client saisie() {
-		System.out.println("Donner un nom au client");
-		String nomClient = Saisie.saisieChaine();
-		System.out.println("Donner un prenom au client");
-		String prenomClient = Saisie.saisieChaine();
-		return new Client(nomClient, prenomClient, 0.0);
 	}
 
 	@Override
 	public String toString() {
-		return String.format("%s %s : %.2f", nomClient, prenomClient, caClient);
+		return String.format("%s %s : %.2f%s", nomClient, prenomClient, caClient.getMontant(), caClient.getDevise());
 	}
 
 	/**
@@ -78,7 +70,7 @@ public class Client {
 	/**
 	 * @return the caClient
 	 */
-	public double getCaClient() {
+	public Devise getCaClient() {
 		return caClient;
 	}
 
@@ -87,9 +79,9 @@ public class Client {
 	 */
 	public void setCaClient(double caClient) {
 		if (caClient < 0) {
-			this.caClient = 0;
+			this.caClient.setMontant(0);
 		} else {
-			this.caClient = caClient;
+			this.caClient.setMontant(caClient);
 		}
 	}
 

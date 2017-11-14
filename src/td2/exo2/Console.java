@@ -7,6 +7,7 @@ package td2.exo2;
 
 import java.util.Scanner;
 import td1.Saisie;
+import td2.exo2.Exceptions.ClientNotExistsException;
 
 /**
  *
@@ -27,6 +28,7 @@ public class Console {
 		Clientele clientele = new Clientele();
 
 		do {
+
 			// Affichage du menu
 			for (Object option : options) {
 				System.out.println(option);
@@ -42,17 +44,38 @@ public class Console {
 
 			switch (reponseUtilisateur) {
 				case 1:
-					clientele.affiche();
+					try {
+						clientele.affiche();
+					} catch (ClientNotExistsException ex) {
+						System.out.println("Il n'y a pas de client!");
+					}
 					break;
+					
 				case 2:
-					clientele.addClient(Client.saisie());
+					String nomClient = Saisie.saisieChaine("Indiquer le nom du client");
+					String prenomClient = Saisie.saisieChaine("Indiquer le prénom du client");
+					double caClient = Saisie.saisieReel("CA du client à l'heure actuelle");
+					clientele.addClient(new Client(nomClient, prenomClient, caClient));
 					break;
+					
 				case 3:
-					int indexClient = Saisie.saisieEntier();
-					//clientele.addCA(indexClient);
+					int indexClientAmodifier = Saisie.saisieEntier("Donner l'index du client pour ajouter du CA");
+					double caClientAajouter = Saisie.saisieReel("Combien faut-il ajouter au CA du client");
+					try {
+						clientele.addCA(indexClientAmodifier, (float) caClientAajouter);
+					} catch (ClientNotExistsException ex) {
+						System.out.println("L'indice du client n'existe pas");
+					}
+
 					break;
 				case 4:
-					//clientele.delClient();
+					int indexClientAsupprimer = Saisie.saisieEntier("Donner l'index du client à supprimer");
+					try {
+						clientele.delClient(indexClientAsupprimer);
+					} catch (ClientNotExistsException ex) {
+						System.out.println("L'indice du client n'existe pas");
+					}
+
 					break;
 				case 5:
 					System.exit(0);

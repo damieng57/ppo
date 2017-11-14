@@ -1,10 +1,12 @@
 package td2.exo2;
 
+// Import si utilisation d'un design patern strategy - pour référence ultérieure
+//import td2.exo2.Status.TypeClientPrivilege;
+//import td2.exo2.Status.ClientExceptionnel;
+//import td2.exo2.Status.BonClient;
+//import td2.exo2.Status.VeryImportantClient;
+
 import td2.exo2.Status.EnumTypeClientPriviliege;
-import td2.exo2.Status.TypeClientPrivilege;
-import td2.exo2.Status.ClientExceptionnel;
-import td2.exo2.Status.BonClient;
-import td2.exo2.Status.VeryImportantClient;
 import td2.exo2.Exceptions.NotImportantConsumerException;
 
 public class ClientPrivilegie extends Client {
@@ -26,7 +28,7 @@ public class ClientPrivilegie extends Client {
 		}
 		
 		
-//		Version utilisant le design pattern strategy
+//		Version utilisant le design pattern strategy - Pour référence ultérieure
 //		if (caClient < 1000) {
 //			throw new NotImportantConsumerException();
 //		} else if (caClient < 3000) {
@@ -39,7 +41,7 @@ public class ClientPrivilegie extends Client {
 	}
 
 	public ClientPrivilegie(Client clientApromouvoir) {
-		this(clientApromouvoir.getNomClient(), clientApromouvoir.getPrenomClient(), clientApromouvoir.getCaClient());
+		this(clientApromouvoir.getNomClient(), clientApromouvoir.getPrenomClient(), clientApromouvoir.getCaClient().getMontant());
 	}
 	
 	

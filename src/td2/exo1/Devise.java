@@ -5,7 +5,7 @@ import td2.exo1.Exceptions.NoMoneyException;
 public class Devise {
 
 	// Attributs
-	private int montant;
+	private double montant;
 	private NomDevises nomDevise;
 	
 	//Constructeur
@@ -14,17 +14,17 @@ public class Devise {
 		this(NomDevises.EURO, 0);
 	}
 		
-	public Devise(NomDevises devise, int montant) {
+	public Devise(NomDevises devise, double montant) {
 		// On utilise les setters pour contrôler la cohérence
 		this.setNomDevise(devise);
 		this.setMontant(montant);
 	}
 	
 	// Fonctions
-	public int getMontant() {
+	public double getMontant() {
 		return montant;
 	}
-	public void setMontant(int montant) {
+	public void setMontant(double montant) {
 		if (montant > 0){
 			this.montant = montant;
 		} else {

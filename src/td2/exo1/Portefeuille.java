@@ -71,7 +71,7 @@ public class Portefeuille {
 	}
 
 	// Sortir des devises du porte-feuille
-	public void sortirDeviseDuPortefeuille(NomDevises nomDevise, int montant) {
+	public void sortirDeviseDuPortefeuille(NomDevises nomDevise, double montant) {
 		// Reduire le montant sur la devise selectionnée
 		Devise deviseCourante = chercherDevise(nomDevise);
 		if (deviseCourante != null) {
@@ -82,7 +82,7 @@ public class Portefeuille {
 	}
 
 	// Placer des devises dans le porte-feuille
-	public void mettreDeviseDansPortefeuille(NomDevises nomDevise, int montant) {
+	public void mettreDeviseDansPortefeuille(NomDevises nomDevise, double montant) {
 		// Augmenter le montant sur la devise selectionnée
 		Devise deviseCourante = chercherDevise(nomDevise);
 		try {
@@ -101,7 +101,7 @@ public class Portefeuille {
 	}
 
 	// Afficher le montant présent pour une devise
-	public int montantDevise(NomDevises nomDevise) {
+	public double montantDevise(NomDevises nomDevise) {
 		// Afficher les devises presentent dans le portefeuille
 		try {
 			return chercherDevise(nomDevise).getMontant();
