@@ -7,7 +7,7 @@ package td2.exo2.Status;
 public class BonClient implements TypeClientPrivilege{
 	
 	private String typeClient = "Bon client";
-	private double reductionClient = 0.5;
+	private double reductionClient = 0.05;
 
 	@Override
 	public String getType() {

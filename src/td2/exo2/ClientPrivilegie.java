@@ -1,5 +1,6 @@
 package td2.exo2;
 
+import td2.exo2.Status.EnumTypeClientPriviliege;
 import td2.exo2.Status.TypeClientPrivilege;
 import td2.exo2.Status.ClientExceptionnel;
 import td2.exo2.Status.BonClient;
@@ -8,20 +9,33 @@ import td2.exo2.Exceptions.NotImportantConsumerException;
 
 public class ClientPrivilegie extends Client {
 
-	private TypeClientPrivilege typeClientPrivilege;
+	private EnumTypeClientPriviliege enumTypeClientPriviliege;
 
 	public ClientPrivilegie(String nomClient, String prenomClient, double caClient) {
 		super(nomClient, prenomClient, caClient);
-
+		
+//		Version utilisant les énumération
 		if (caClient < 1000) {
 			throw new NotImportantConsumerException();
 		} else if (caClient < 3000) {
-			this.typeClientPrivilege = new BonClient();
+			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.BON_CLIENT;
 		} else if (caClient < 10000) {
-			this.typeClientPrivilege = new ClientExceptionnel();
+			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.CLIENT_EXCEPTIONNEL;
 		} else {
-			this.typeClientPrivilege = new VeryImportantClient();
+			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.VERY_IMPORTANT_CLIENT;
 		}
+		
+		
+//		Version utilisant le design pattern strategy
+//		if (caClient < 1000) {
+//			throw new NotImportantConsumerException();
+//		} else if (caClient < 3000) {
+//			this.typeClientPrivilege = new BonClient();
+//		} else if (caClient < 10000) {
+//			this.typeClientPrivilege = new ClientExceptionnel();
+//		} else {
+//			this.typeClientPrivilege = new VeryImportantClient();
+//		}
 	}
 
 	public ClientPrivilegie(Client clientApromouvoir) {
@@ -31,6 +45,6 @@ public class ClientPrivilegie extends Client {
 	
 	@Override
 	public String toString(){
-		return super.toString() + String.format(" (Statut spécial : %s)", this.typeClientPrivilege.getType());	
+		return super.toString() + String.format(" (Reduction : %s)", this.enumTypeClientPriviliege.toString());	
 	}
 }

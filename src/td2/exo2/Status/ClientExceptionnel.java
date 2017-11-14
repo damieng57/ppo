@@ -7,7 +7,7 @@ package td2.exo2.Status;
 public class ClientExceptionnel implements TypeClientPrivilege{
 	
 	private String typeClient = "Client exceptionnel";
-	private double reductionClient = 0.5;
+	private double reductionClient = 0.15;
 
 	@Override
 	public String getType() {

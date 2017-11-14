@@ -5,15 +5,29 @@ public class Main {
 	public static void main(String[] args) {
 		Client A = new Client("GAIGA", "Damien", 0);
 		Client B = new Client("CUNY", "Aurélie", 0);
+		
+		Clientele clientele = new Clientele();
+		
+		
+		
 
-		System.out.println(A);
-		System.out.println(B);
+		clientele.addClient(A);
+		clientele.addClient(B);
 		
-		A.setCaClient(10000);
+		clientele.affiche();
 		
-		A = new ClientPrivilegie(A);
+		clientele.addCA(0, 999);
+		clientele.addCA(1, 5000);
 		
-		System.out.println(A);
+		clientele.affiche();
+		
+		
+		Console.startConsole();
+		
+		
+		//A = new ClientPrivilegie(A);
+		
+		//System.out.println(A);
 	}
 
 }
