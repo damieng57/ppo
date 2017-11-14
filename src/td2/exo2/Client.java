@@ -1,5 +1,6 @@
 package td2.exo2;
 
+import td1.Saisie;
 import td2.exo2.Exceptions.UndefinedClientException;
 
 /**
@@ -21,19 +22,24 @@ public class Client {
 			this.setCaClient(caClient);
 		}
 	}
-	
-	@Override
-	public boolean equals(Object o){
-		Client c = (Client) o;
-		return c.getCaClient() == this.caClient;
-	}
+
+//	@Override
+//	public boolean equals(Object o){
+//		Client c = (Client) o;
+//		return c.getCaClient() == this.caClient;
+//	}
 
 	public void affiche() {
 		// TODO
 	}
 
-	public void saisie() {
-		// TODO
+	// Methode statique pour créer un client
+	public static Client saisie() {
+		System.out.println("Donner un nom au client");
+		String nomClient = Saisie.saisieChaine();
+		System.out.println("Donner un prenom au client");
+		String prenomClient = Saisie.saisieChaine();
+		return new Client(nomClient, prenomClient, 0.0);
 	}
 
 	@Override
