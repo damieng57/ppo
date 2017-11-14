@@ -21,45 +21,46 @@ public class Console {
 		"4. Supprimer un client",
 		"5. Quitter"
 	};
-	
 
 	public static void startConsole() {
-		
+
 		Clientele clientele = new Clientele();
-			
-		// Affichage du menu
-		for (Object option : options) {
-			System.out.println(option);
-		}
 
-		// Attente d'une réponse de l'utilisateur
-		int reponseUtilisateur;
-		
-
-		// Traitement du choix utilisateur
 		do {
-			reponseUtilisateur = Saisie.saisieEntier();
-		} while (reponseUtilisateur<1 || reponseUtilisateur>options.length+1);
-		
-		
-		switch (reponseUtilisateur) {
-			case 1:
-				clientele.affiche();
-				break;
-			case 2:
-				clientele.addClient(Client.saisie());
-				break;
-			case 3:
-				//clientele.addCA();
-				break;
-			case 4:
-				//clientele.delClient();
-				break;
-			case 5:
-				System.exit(0);
-				break;
+			// Affichage du menu
+			for (Object option : options) {
+				System.out.println(option);
+			}
 
-		}
+			// Attente d'une réponse de l'utilisateur
+			int reponseUtilisateur;
+
+			// Traitement du choix utilisateur
+			do {
+				reponseUtilisateur = Saisie.saisieEntier();
+			} while (reponseUtilisateur < 1 || reponseUtilisateur > options.length + 1);
+
+			switch (reponseUtilisateur) {
+				case 1:
+					clientele.affiche();
+					break;
+				case 2:
+					clientele.addClient(Client.saisie());
+					break;
+				case 3:
+					int indexClient = Saisie.saisieEntier();
+					//clientele.addCA(indexClient);
+					break;
+				case 4:
+					//clientele.delClient();
+					break;
+				case 5:
+					System.exit(0);
+					break;
+
+			}
+
+		} while (true);
 
 	}
 

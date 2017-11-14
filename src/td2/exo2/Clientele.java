@@ -1,6 +1,7 @@
 package td2.exo2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -43,8 +44,9 @@ public class Clientele {
 	public void affiche() {
 
 		
-		List<Client> listeDeclientsAtrier = new ArrayList<>(clientele.values());
-		Collections.sort(listeDeclientsAtrier, new CaClientComparator());
+		ArrayList<Client> listeDeclientsAtrier = new ArrayList<>(clientele.values());
+		//Collections.sort(listeDeclientsAtrier, new CaClientComparator());
+		listeDeclientsAtrier.sort(new CaClientComparator());
 
 		for (Client client : listeDeclientsAtrier) {
 			System.out.println(client.toString());

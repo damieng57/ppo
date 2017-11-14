@@ -28,6 +28,7 @@ public class Client {
 //		Client c = (Client) o;
 //		return c.getCaClient() == this.caClient;
 //	}
+
 	public void affiche() {
 		// TODO
 	}
