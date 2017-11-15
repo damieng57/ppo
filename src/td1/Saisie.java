@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Damien
+ * @author Damien GAIGA
  */
 // Classe en réponse à l'exercice 8
 public class Saisie {

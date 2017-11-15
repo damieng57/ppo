@@ -7,8 +7,7 @@ import td2.exo2.Exceptions.ClientNotExistsException;
  *
  * Version console du programme permattant de gérer les clients
  * <p> Affiche les messages, reçoit les commandes utilisateurs et
- * execute les commandes nécessaire suivant les choix effectués
- *
+ * execute les commandes nécessaire suivant les choix effectués.
  * </p>
  * 
  * @author Damien GAIGA

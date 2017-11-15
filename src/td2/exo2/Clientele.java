@@ -77,6 +77,9 @@ public class Clientele {
 	 *
 	 * Ajoute un client à la liste clientèle
 	 * 
+	 * <p>NOTA : Je ne teste pas s'il existe des homonymes. L'élément différenciant
+	 * sera l'index du client dans la HashMap</p>
+	 * 
 	 * @param clientAajouter
 	 */
 	public void addClient(Client clientAajouter) {
@@ -133,7 +136,6 @@ public class Clientele {
 	 *
 	 * Afficher la liste des clients ordonnés suivant suivant l'ordre décroissant
 	 * de leur chiffre d'affaires
-	 * 
 	 * 
 	 */
 	public void affiche() {
