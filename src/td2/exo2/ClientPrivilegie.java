@@ -1,10 +1,5 @@
 package td2.exo2;
 
-// Import si utilisation d'un design patern strategy - pour référence ultérieure
-//import td2.exo2.Status.TypeClientPrivilege;
-//import td2.exo2.Status.ClientExceptionnel;
-//import td2.exo2.Status.BonClient;
-//import td2.exo2.Status.VeryImportantClient;
 import td2.exo2.Status.EnumTypeClientPriviliege;
 import td2.exo2.Exceptions.NotImportantConsumerException;
 
@@ -59,16 +54,5 @@ public class ClientPrivilegie extends Client {
 		} else {
 			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.VERY_IMPORTANT_CLIENT;
 		}
-
-//		Version utilisant le design pattern strategy - Pour référence ultérieure
-//		if (caClient < SEUIL_BON_CLIENT) {
-//			throw new NotImportantConsumerException();
-//		} else if (caClient < SEUIL_CLIENT_EXCEPTIONNEL) {
-//			this.typeClientPrivilege = new BonClient();
-//		} else if (caClient < SEUIL_CLIENT_VERY_IMPORTANT) {
-//			this.typeClientPrivilege = new ClientExceptionnel();
-//		} else {
-//			this.typeClientPrivilege = new VeryImportantClient();
-//		}
 	}
 }
