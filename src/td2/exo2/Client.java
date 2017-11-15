@@ -9,6 +9,14 @@ import td2.exo2.Exceptions.UndefinedClientException;
  *
  * @author Damien GAIGA
  */
+
+/**
+ * La classe Client permet de créer un objet de type Client
+ * <p>
+ * Un objet Client possède un nom, prénom et CA
+ * </p>
+ *
+ */
 public class Client {
 
 	private String nomClient;
@@ -25,9 +33,9 @@ public class Client {
 	 * le CA à 0.
 	 * </p>
 	 * 
-	 * @param nomClient
-	 * @param prenomClient
-	 * @param caClient
+	 * @param nomClient Le nom du client
+	 * @param prenomClient Le prenom du client
+	 * @param caClient Le CA du client
 	 */
 	public Client(String nomClient, String prenomClient, double caClient) {
 		if (nomClient.equals("") || prenomClient.equals("")) {

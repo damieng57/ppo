@@ -16,7 +16,7 @@ public class ClientNotExistsException extends RuntimeException {
 
 	@Override
 	public String getMessage() {
-		return "Le client n'est pas dans la liste ou la liste de client est vide";
+		return "Le client n'est pas dans la liste ou la liste de clients est vide";
 	}
 
 }

@@ -1,45 +1,48 @@
 package td2.exo2;
 
-import td2.exo2.Status.EnumTypeClientPriviliege;
+import td2.exo2.Status.EnumTypeClientPrivilegie;
 import td2.exo2.Exceptions.NotImportantConsumerException;
 
 /**
  *
  * @author Damien GAIGA
  */
+
+/**
+ * La classe ClientPrivilege hérite de Client
+ * <p>
+ * Un objet ClientPrivilege possède un nom, prénom et CA et d'un privilège (enum)
+ *  </p>
+ *
+ */
 public class ClientPrivilegie extends Client {
 
-	private EnumTypeClientPriviliege enumTypeClientPriviliege;
+	private EnumTypeClientPrivilegie enumTypeClientPriviliege;
 
-	private final int SEUIL_BON_CLIENT = 1000;
-	private final int SEUIL_CLIENT_EXCEPTIONNEL = 3000;
-	private final int SEUIL_CLIENT_VERY_IMPORTANT = 10000;
+	private final int SEUIL_BON_CLIENT = enumTypeClientPriviliege.BON_CLIENT.getSeuilClientPrivilege();
+	private final int SEUIL_CLIENT_EXCEPTIONNEL = enumTypeClientPriviliege.CLIENT_EXCEPTIONNEL.getSeuilClientPrivilege();
+	private final int SEUIL_CLIENT_VERY_IMPORTANT = enumTypeClientPriviliege.VERY_IMPORTANT_CLIENT.getSeuilClientPrivilege();
 
 	/**
 	 *
 	 * Promouvoir un simple client en client privilégié
 	 * 
-	 * @param clientApromouvoir
+	 * @param clientApromouvoir Tente de passer de remplacer un objet Client par un objet ClientPrivilegie
 	 */
 	public ClientPrivilegie(Client clientApromouvoir) {
 		this(clientApromouvoir.getNomClient(), clientApromouvoir.getPrenomClient(), clientApromouvoir.getCaClient().getMontant());
-	}
-
-	@Override
-	public String toString() {
-		return super.toString() + String.format(" (Reduction : %s)", this.enumTypeClientPriviliege.toString());
 	}
 
 	/**
 	 *
 	 * Constructeur du client prvilégié
 	 * <p> On définira le type de client dans le constructeur en se basant sur
-	 * une énumération (EnumTypeClientPriviliege.java)
-	 * </p>
+ une énumération (EnumTypeClientPrivilegie.java)
+ </p>
 	 * 
-	 * @param nomClient
-	 * @param prenomClient
-	 * @param caClient
+	 * @param nomClient Le nom du client
+	 * @param prenomClient Le prenom du client
+	 * @param caClient Le CA du client
 	 */
 	public ClientPrivilegie(String nomClient, String prenomClient, double caClient) {
 		super(nomClient, prenomClient, caClient);
@@ -48,11 +51,16 @@ public class ClientPrivilegie extends Client {
 		if (caClient < SEUIL_BON_CLIENT) {
 			throw new NotImportantConsumerException();
 		} else if (caClient < SEUIL_CLIENT_EXCEPTIONNEL) {
-			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.BON_CLIENT;
+			this.enumTypeClientPriviliege = EnumTypeClientPrivilegie.BON_CLIENT;
 		} else if (caClient < SEUIL_CLIENT_VERY_IMPORTANT) {
-			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.CLIENT_EXCEPTIONNEL;
+			this.enumTypeClientPriviliege = EnumTypeClientPrivilegie.CLIENT_EXCEPTIONNEL;
 		} else {
-			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.VERY_IMPORTANT_CLIENT;
+			this.enumTypeClientPriviliege = EnumTypeClientPrivilegie.VERY_IMPORTANT_CLIENT;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + String.format(" (Reduction : %s)", this.enumTypeClientPriviliege.toString());
 	}
 }

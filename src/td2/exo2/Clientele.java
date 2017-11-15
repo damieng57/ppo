@@ -7,9 +7,10 @@ import java.util.Map;
 import td2.exo2.Exceptions.ClientNotExistsException;
 import td2.exo2.Exceptions.ClientAlreadyExistsException;
 import td2.exo2.Exceptions.NotImportantConsumerException;
+import td2.exo2.Exceptions.NotPositiveValueException;
 
 /**
- * La classe clientèle gère une HashMap<Integer, Client>
+ * La classe clientèle gère une HashMap(Integer, Client)
  * <p>
  * On utilise les propriètés de la HashMap pour ajouter/supprimer ou modifier
  * les clients dans la liste. </p>
@@ -46,15 +47,20 @@ public class Clientele {
 	/**
 	 *	Modifie le chiffre d'affaires d'un client présent dans la liste clientèle
 	 * 
-	 * @see updateClient()
 	 * 
-	 * @param num
-	 * @param chiffre
+	 * @param num Index du client dans la HashMap
+	 * @param chiffre Chiffre d'affaires à ajouter au client
 	 */
 	public void addCA(int num, float chiffre) {
 		if (clientele.containsKey(num)) {
 			Client clientAmettreAjour = clientele.get(num);
-			clientAmettreAjour.setCaClient(clientAmettreAjour.getCaClient().getMontant() + chiffre);
+			// On ajoute du CA au client, on ne peut donc rien soustraire, on interdit
+			// les valeurs négatives
+			if (chiffre<0){
+				throw new NotPositiveValueException();
+			} else {
+				clientAmettreAjour.setCaClient(clientAmettreAjour.getCaClient().getMontant() + chiffre);
+			}
 
 			// On tente de promouvoir le client en fonction de son CA
 			try {
@@ -80,7 +86,7 @@ public class Clientele {
 	 * <p>NOTA : Je ne teste pas s'il existe des homonymes. L'élément différenciant
 	 * sera l'index du client dans la HashMap</p>
 	 * 
-	 * @param clientAajouter
+	 * @param clientAajouter Objet client à ajouter à la HashMap
 	 */
 	public void addClient(Client clientAajouter) {
 
@@ -96,12 +102,13 @@ public class Clientele {
 			affiche();
 		}
 	}
+	
 
 	/**
 	 *
 	 * Supprime un client à la liste clientèle
 	 * 
-	 * @param indexClientAsupprimer
+	 * @param indexClientAsupprimer Supprimer un client de la liste suivant son index
 	 */
 	public void delClient(int indexClientAsupprimer) {
 
@@ -119,8 +126,8 @@ public class Clientele {
 	 *
 	 * Mettre à jour un client de la liste
 	 * 
-	 * @param indexClientAmettreAjour
-	 * @param clientAmettreAjour
+	 * @param indexClientAmettreAjour Index du client sur lequel porte la mise à jour des données
+	 * @param clientAmettreAjour Objet client à modifier dans la HashMap
 	 */
 	public void updateClient(int indexClientAmettreAjour, Client clientAmettreAjour) {
 
@@ -131,6 +138,9 @@ public class Clientele {
 
 		}
 	}
+	
+	
+	// METHODE AFFICHE A VERTU PEDAGOGIQUE - NE RESPECTE PAS LE MVC
 	
 	/**
 	 *
@@ -169,6 +179,6 @@ public class Clientele {
 	 * 
 	 */
 	public void afficheNombreClient() {
-		System.out.println(String.format("Il y a : %s clients enregistrés", nombreClient));
+		System.out.println(String.format("Il y a : %s client(s) enregistré(s)", nombreClient));
 	}
 }

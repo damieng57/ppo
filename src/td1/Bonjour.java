@@ -191,8 +191,8 @@ public class Bonjour {
 		while (true) {
 			try {
 				Scanner sc = new Scanner(System.in);
-				double entier = sc.nextDouble();
-				return entier;
+				double reel = sc.nextDouble();
+				return reel;
 			} catch (InputMismatchException ex) {
 				System.out.println(ex);
 			}

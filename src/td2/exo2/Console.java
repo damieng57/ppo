@@ -2,6 +2,7 @@ package td2.exo2;
 
 import td1.Saisie;
 import td2.exo2.Exceptions.ClientNotExistsException;
+import td2.exo2.Exceptions.NotPositiveValueException;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Console {
 	private static final String[] options = {
 		"1. Afficher les clients",
 		"2. Ajouter un client",
-		"3. Modifier CA d'un client",
+		"3. Ajouter du CA à un client",
 		"4. Supprimer un client",
 		"5. Afficher le nombre de clients",
 		"6. Quitter"
@@ -54,6 +55,7 @@ public class Console {
 					try {
 						clientele.affiche();
 					} catch (ClientNotExistsException ex) {
+						// On change le message standard
 						System.out.println("Il n'y a pas de client!");
 					}
 					break;
@@ -62,7 +64,7 @@ public class Console {
 					String nomClient = Saisie.saisieChaine("Indiquer le nom du client");
 					String prenomClient = Saisie.saisieChaine("Indiquer le prénom du client");
 					double caClient = Saisie.saisieReel("CA du client à l'heure actuelle");
-					clientele.addClient(new Client(nomClient, prenomClient, caClient));
+					clientele.addClient(FabriqueClient.create(nomClient, prenomClient, caClient));
 					break;
 
 				case 3:
@@ -71,7 +73,9 @@ public class Console {
 					try {
 						clientele.addCA(indexClientAmodifier, (float) caClientAajouter);
 					} catch (ClientNotExistsException ex) {
-						System.out.println("L'indice du client n'existe pas");
+						System.out.println(ex.getMessage());
+					} catch (NotPositiveValueException ex) {
+						System.out.println(ex.getMessage());
 					}
 
 					break;
@@ -80,7 +84,7 @@ public class Console {
 					try {
 						clientele.delClient(indexClientAsupprimer);
 					} catch (ClientNotExistsException ex) {
-						System.out.println("L'indice du client n'existe pas");
+						System.out.println(ex.getMessage());
 					}
 
 					break;

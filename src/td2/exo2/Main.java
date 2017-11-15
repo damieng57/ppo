@@ -17,7 +17,9 @@ public class Main {
 	/**
 	 * Point d'entrée du programme, aiguille vers l'une des versions choisies
 	 * 
-	 * @param args
+	 * @param args Si args[0] = "console" - lance le programme en mode console
+	 *			   Si args[0] = "gui" - lance le programme en mode gui
+	 *			   Sans paramètre - mode console
 	 */
 	public static void main(String[] args) {
 
