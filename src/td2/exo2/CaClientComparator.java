@@ -2,6 +2,10 @@ package td2.exo2;
 
 import java.util.Comparator;
 
+/**
+ *
+ * @author Damien
+ */
 public class CaClientComparator implements Comparator<Client>{
 
 	@Override

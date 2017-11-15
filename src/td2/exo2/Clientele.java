@@ -8,27 +8,49 @@ import td2.exo2.Exceptions.ClientNotExistsException;
 import td2.exo2.Exceptions.ClientAlreadyExistsException;
 import td2.exo2.Exceptions.NotImportantConsumerException;
 
+/**
+ * La classe clientèle gère une HashMap<Integer, Client>
+ * <p>
+ * On utilise les propriètés de la HashMap pour ajouter/supprimer ou modifier
+ * les clients dans la liste. </p>
+ * 
+ *  @author Damien GAIGA
+ *
+ */
 public class Clientele {
 
-	// S'incremente à chaque création de clients
-	// mais ne décrémente jamais - un client supprimé n'existe plus
+// S'incremente à chaque création de clients
+// mais ne décrémente jamais - un client supprimé n'existe plus
 	private static int indexMap = 0;
 
-	// Permet de connaitre le nombre de clients
+// Permet de connaitre le nombre de clients. On aurait pu également se contenter
+// d'utiliser la méthode .size() de la HashMap. J'ai voulu exposer un cas d'utilisation
+// d'une variable de classe
 	private static int nombreClient = 0;
 
-	/*
-	Pourquoi utiliser un objet de type Hashmap/TreeMap ?
-	Pour fournir à chaque nouveau client un identifiant associé
-	Même si l'on supprime des éléments, le numéro client ne change pas (contrairement
-	à un indice dans un tableau qui change si l'on supprime/ajout/réordonne des éléments
-	 */
+
+//	Pourquoi utiliser un objet de type Hashmap/TreeMap ?
+//	Pour fournir à chaque nouveau client un identifiant associé
+//	Même si l'on supprime des éléments, le numéro client ne change pas (contrairement
+//	à un indice dans un tableau qui change si l'on supprime/ajout/réordonne des éléments
+
 	private HashMap<Integer, Client> clientele;
 
+	/**
+	 * Constructeur de clientèle. Ne prends pas de paramètre.
+	 */
 	public Clientele() {
 		clientele = new HashMap<Integer, Client>();
 	}
 
+	/**
+	 *	Modifie le chiffre d'affaires d'un client présent dans la liste clientèle
+	 * 
+	 * @see updateClient()
+	 * 
+	 * @param num
+	 * @param chiffre
+	 */
 	public void addCA(int num, float chiffre) {
 		if (clientele.containsKey(num)) {
 			Client clientAmettreAjour = clientele.get(num);
@@ -51,6 +73,12 @@ public class Clientele {
 
 	}
 
+	/**
+	 *
+	 * Ajoute un client à la liste clientèle
+	 * 
+	 * @param clientAajouter
+	 */
 	public void addClient(Client clientAajouter) {
 
 		if (clientele.containsValue(clientAajouter)) {
@@ -66,6 +94,12 @@ public class Clientele {
 		}
 	}
 
+	/**
+	 *
+	 * Supprime un client à la liste clientèle
+	 * 
+	 * @param indexClientAsupprimer
+	 */
 	public void delClient(int indexClientAsupprimer) {
 
 		if (clientele.containsKey(indexClientAsupprimer)) {
@@ -78,17 +112,30 @@ public class Clientele {
 		}
 	}
 
+	/**
+	 *
+	 * Mettre à jour un client de la liste
+	 * 
+	 * @param indexClientAmettreAjour
+	 * @param clientAmettreAjour
+	 */
 	public void updateClient(int indexClientAmettreAjour, Client clientAmettreAjour) {
 
 		if (clientele.containsKey(indexClientAmettreAjour)) {
 			clientele.replace(indexClientAmettreAjour, clientAmettreAjour);
-			//affiche();
 		} else {
 			throw new ClientNotExistsException();
 
 		}
 	}
-
+	
+	/**
+	 *
+	 * Afficher la liste des clients ordonnés suivant suivant l'ordre décroissant
+	 * de leur chiffre d'affaires
+	 * 
+	 * 
+	 */
 	public void affiche() {
 
 		// Copie dans une liste pour trier suivant le CA
@@ -113,6 +160,12 @@ public class Clientele {
 
 	}
 
+	/**
+	 *	Affiche le nombre de clients dans la liste clientèle
+	 * 
+	 * @see nombreClient
+	 * 
+	 */
 	public void afficheNombreClient() {
 		System.out.println(String.format("Il y a : %s clients enregistrés", nombreClient));
 	}

@@ -1,8 +1,3 @@
-/*
- * Programme en mode console permattant de gérer les clients
- * 
- * 
- */
 package td2.exo2;
 
 import td1.Saisie;
@@ -10,7 +5,13 @@ import td2.exo2.Exceptions.ClientNotExistsException;
 
 /**
  *
- * @author gaiga4u
+ * Version console du programme permattant de gérer les clients
+ * <p> Affiche les messages, reçoit les commandes utilisateurs et
+ * execute les commandes nécessaire suivant les choix effectués
+ *
+ * </p>
+ * 
+ * @author Damien GAIGA
  */
 public class Console {
 
@@ -23,6 +24,10 @@ public class Console {
 		"6. Quitter"
 	};
 
+	/**
+	 * Demarre le programme
+	 * 
+	 */
 	public static void startConsole() {
 		
 		System.out.println("GESTION DE CLIENTELE");

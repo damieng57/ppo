@@ -8,6 +8,10 @@ package td2.exo2;
 import td2.exo2.Status.EnumTypeClientPriviliege;
 import td2.exo2.Exceptions.NotImportantConsumerException;
 
+/**
+ *
+ * @author Damien GAIGA
+ */
 public class ClientPrivilegie extends Client {
 
 	private EnumTypeClientPriviliege enumTypeClientPriviliege;
@@ -16,6 +20,12 @@ public class ClientPrivilegie extends Client {
 	private final int SEUIL_CLIENT_EXCEPTIONNEL = 3000;
 	private final int SEUIL_CLIENT_VERY_IMPORTANT = 10000;
 
+	/**
+	 *
+	 * Promouvoir un simple client en client privilégié
+	 * 
+	 * @param clientApromouvoir
+	 */
 	public ClientPrivilegie(Client clientApromouvoir) {
 		this(clientApromouvoir.getNomClient(), clientApromouvoir.getPrenomClient(), clientApromouvoir.getCaClient().getMontant());
 	}
@@ -25,6 +35,17 @@ public class ClientPrivilegie extends Client {
 		return super.toString() + String.format(" (Reduction : %s)", this.enumTypeClientPriviliege.toString());
 	}
 
+	/**
+	 *
+	 * Constructeur du client prvilégié
+	 * <p> On définira le type de client dans le constructeur en se basant sur
+	 * une énumération (EnumTypeClientPriviliege.java)
+	 * </p>
+	 * 
+	 * @param nomClient
+	 * @param prenomClient
+	 * @param caClient
+	 */
 	public ClientPrivilegie(String nomClient, String prenomClient, double caClient) {
 		super(nomClient, prenomClient, caClient);
 

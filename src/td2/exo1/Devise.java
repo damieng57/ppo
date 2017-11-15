@@ -25,10 +25,11 @@ public class Devise {
 		return montant;
 	}
 	public void setMontant(double montant) {
-		if (montant > 0){
-			this.montant = montant;
-		} else {
+		if (montant < 0){
 			throw new NoMoneyException();
+		} else {
+			this.montant = montant;
+			
 		}
 	}
 	

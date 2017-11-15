@@ -11,6 +11,12 @@ package td2.exo2.Exceptions;
  */
 public class UndefinedClientException extends RuntimeException {
 
+	/**
+	 *
+	 * Exception levée si aucun nom ou prénom n'a était fourni à la création du
+	 * client. Il n'est pas possible de créer un client sans ces éléments.
+	 * 
+	 */
 	public UndefinedClientException() {
 	}
 

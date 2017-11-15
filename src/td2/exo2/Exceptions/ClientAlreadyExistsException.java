@@ -1,16 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package td2.exo2.Exceptions;
 
 /**
  *
- * @author gaiga4u
+ * @author Damien GAIGA
  */
 public class ClientAlreadyExistsException extends RuntimeException {
 
+	/**
+	 *
+	 * Exception levée si le client est déjà existant dans la HashMap clientele
+	 * 
+	 */
 	public ClientAlreadyExistsException() {
 	}
 

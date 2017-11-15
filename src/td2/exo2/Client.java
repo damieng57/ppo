@@ -1,29 +1,45 @@
 package td2.exo2;
 
 import td2.exo1.Devise;
+import td2.exo1.Exceptions.NoMoneyException;
 import td2.exo1.NomDevises;
 import td2.exo2.Exceptions.UndefinedClientException;
 
 /**
  *
- * @author gaiga4u
+ * @author Damien GAIGA
  */
 public class Client {
 
 	private String nomClient;
 	private String prenomClient;
-	//private double caClient;
 	private Devise caClient;
 
 	// NOTA : J'ai volontairement supprimer les méthodes saisie et affiche
 	// car je n'en ai pas, à mon sens, l'utilité
+
+	/**
+	 * Constructeur du client. Tous les éléments doivent être renseignés
+	 * <p> Le CA est au minimum égal à 0€. Une exception sera levée (NoMonetException)
+	 * par la classe devise dans le cas contraire. Je regle le problème en passant
+	 * le CA à 0.
+	 * </p>
+	 * 
+	 * @param nomClient
+	 * @param prenomClient
+	 * @param caClient
+	 */
 	public Client(String nomClient, String prenomClient, double caClient) {
 		if (nomClient.equals("") || prenomClient.equals("")) {
 			throw new UndefinedClientException();
 		} else {
 			this.setNomClient(nomClient);
 			this.setPrenomClient(prenomClient);
-			this.caClient = new Devise(NomDevises.EURO, caClient);
+			try {
+				this.caClient = new Devise(NomDevises.EURO, caClient);
+			} catch (NoMoneyException ex) {
+				this.caClient = new Devise(NomDevises.EURO, 0);
+			}
 		}
 	}
 

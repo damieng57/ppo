@@ -11,6 +11,12 @@ package td2.exo2.Exceptions;
  */
 public class NotImportantConsumerException extends RuntimeException {
 
+	/**
+	 *
+	 * Exception levée on tente de créer un client privilégié dont le CA n'est pas
+	 * suffisant
+	 * 
+	 */
 	public NotImportantConsumerException() {
 	}
 
