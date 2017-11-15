@@ -39,7 +39,7 @@ public class Saisie {
 				Float reel = sc.nextFloat();
 				return reel;
 			} catch (InputMismatchException ex) {
-				System.out.println(ex);
+				System.out.println("N'est pas un nombre");
 			}
 		}
 

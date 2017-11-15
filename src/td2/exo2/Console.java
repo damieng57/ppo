@@ -5,7 +5,6 @@
  */
 package td2.exo2;
 
-import java.util.Scanner;
 import td1.Saisie;
 import td2.exo2.Exceptions.ClientNotExistsException;
 
@@ -20,16 +19,20 @@ public class Console {
 		"2. Ajouter un client",
 		"3. Modifier CA d'un client",
 		"4. Supprimer un client",
-		"5. Quitter"
+		"5. Afficher le nombre de clients",
+		"6. Quitter"
 	};
 
 	public static void startConsole() {
+		
+		System.out.println("GESTION DE CLIENTELE");
 
 		Clientele clientele = new Clientele();
 
 		do {
 
 			// Affichage du menu
+			System.out.println("\n");
 			for (Object option : options) {
 				System.out.println(option);
 			}
@@ -50,14 +53,14 @@ public class Console {
 						System.out.println("Il n'y a pas de client!");
 					}
 					break;
-					
+
 				case 2:
 					String nomClient = Saisie.saisieChaine("Indiquer le nom du client");
 					String prenomClient = Saisie.saisieChaine("Indiquer le prénom du client");
 					double caClient = Saisie.saisieReel("CA du client à l'heure actuelle");
 					clientele.addClient(new Client(nomClient, prenomClient, caClient));
 					break;
-					
+
 				case 3:
 					int indexClientAmodifier = Saisie.saisieEntier("Donner l'index du client pour ajouter du CA");
 					double caClientAajouter = Saisie.saisieReel("Combien faut-il ajouter au CA du client");
@@ -78,6 +81,9 @@ public class Console {
 
 					break;
 				case 5:
+					clientele.afficheNombreClient();
+					break;
+				case 6:
 					System.exit(0);
 					break;
 

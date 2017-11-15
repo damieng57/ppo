@@ -5,7 +5,6 @@ package td2.exo2;
 //import td2.exo2.Status.ClientExceptionnel;
 //import td2.exo2.Status.BonClient;
 //import td2.exo2.Status.VeryImportantClient;
-
 import td2.exo2.Status.EnumTypeClientPriviliege;
 import td2.exo2.Exceptions.NotImportantConsumerException;
 
@@ -13,40 +12,42 @@ public class ClientPrivilegie extends Client {
 
 	private EnumTypeClientPriviliege enumTypeClientPriviliege;
 
-	public ClientPrivilegie(String nomClient, String prenomClient, double caClient) {
-		super(nomClient, prenomClient, caClient);
-		
-//		Version utilisant les énumération
-		if (caClient < 1000) {
-			throw new NotImportantConsumerException();
-		} else if (caClient < 3000) {
-			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.BON_CLIENT;
-		} else if (caClient < 10000) {
-			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.CLIENT_EXCEPTIONNEL;
-		} else {
-			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.VERY_IMPORTANT_CLIENT;
-		}
-		
-		
-//		Version utilisant le design pattern strategy - Pour référence ultérieure
-//		if (caClient < 1000) {
-//			throw new NotImportantConsumerException();
-//		} else if (caClient < 3000) {
-//			this.typeClientPrivilege = new BonClient();
-//		} else if (caClient < 10000) {
-//			this.typeClientPrivilege = new ClientExceptionnel();
-//		} else {
-//			this.typeClientPrivilege = new VeryImportantClient();
-//		}
-	}
+	private final int SEUIL_BON_CLIENT = 1000;
+	private final int SEUIL_CLIENT_EXCEPTIONNEL = 3000;
+	private final int SEUIL_CLIENT_VERY_IMPORTANT = 10000;
 
 	public ClientPrivilegie(Client clientApromouvoir) {
 		this(clientApromouvoir.getNomClient(), clientApromouvoir.getPrenomClient(), clientApromouvoir.getCaClient().getMontant());
 	}
-	
-	
+
 	@Override
-	public String toString(){
-		return super.toString() + String.format(" (Reduction : %s)", this.enumTypeClientPriviliege.toString());	
+	public String toString() {
+		return super.toString() + String.format(" (Reduction : %s)", this.enumTypeClientPriviliege.toString());
+	}
+
+	public ClientPrivilegie(String nomClient, String prenomClient, double caClient) {
+		super(nomClient, prenomClient, caClient);
+
+//		Version utilisant les énumération
+		if (caClient < SEUIL_BON_CLIENT) {
+			throw new NotImportantConsumerException();
+		} else if (caClient < SEUIL_CLIENT_EXCEPTIONNEL) {
+			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.BON_CLIENT;
+		} else if (caClient < SEUIL_CLIENT_VERY_IMPORTANT) {
+			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.CLIENT_EXCEPTIONNEL;
+		} else {
+			this.enumTypeClientPriviliege = EnumTypeClientPriviliege.VERY_IMPORTANT_CLIENT;
+		}
+
+//		Version utilisant le design pattern strategy - Pour référence ultérieure
+//		if (caClient < SEUIL_BON_CLIENT) {
+//			throw new NotImportantConsumerException();
+//		} else if (caClient < SEUIL_CLIENT_EXCEPTIONNEL) {
+//			this.typeClientPrivilege = new BonClient();
+//		} else if (caClient < SEUIL_CLIENT_VERY_IMPORTANT) {
+//			this.typeClientPrivilege = new ClientExceptionnel();
+//		} else {
+//			this.typeClientPrivilege = new VeryImportantClient();
+//		}
 	}
 }
