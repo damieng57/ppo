@@ -21,7 +21,7 @@ public class Client {
 
 	private String nomClient;
 	private String prenomClient;
-	private Devise caClient;
+	Devise caClient;
 
 	// NOTA : J'ai volontairement supprimer les méthodes saisie et affiche
 	// car je n'en ai pas, à mon sens, l'utilité

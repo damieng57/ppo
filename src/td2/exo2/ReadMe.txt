@@ -1,9 +1,12 @@
-La gestion des clients exploite deux types de mécanisme:
+POUR MEMOIRE
 
-1 - Mécanisme utilisant les énumérations. Celui qui est actuellement implémenté
+La gestion des clients exploite un mécanisme basé sur l'héritage et les énumérations.
+Idéal dans les cas de gestion d'attributs
 
-2 - Mécanisme utilisanr le design paterrn Strategy. Présenté à titre d'exemple.
-Cette option est intéressante si les fonctionnalités différent beaucoup entre les
-différents type de clients privilégiés. Dans le cas présent, il n'y a que des attributs
-qui sont modifiés (pas de calcul, où d'autres fonctions), la méthode des énumérations
-est donc recommandé.
+
+Un mécanisme basé sur le design patern Strategy est intéressant dans le cas où le comportement
+d'une classe à l'autre est plus complexe (Par exemple, des calculs à effectuer qui différent
+d'une classe à une autre)
+
+Un design pattern Fabric permet d'instancier des objets d'un type défini suivant les
+éléments qu'on lui passe en paramètres.

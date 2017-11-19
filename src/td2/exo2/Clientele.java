@@ -14,8 +14,8 @@ import td2.exo2.Exceptions.NotPositiveValueException;
  * <p>
  * On utilise les propriètés de la HashMap pour ajouter/supprimer ou modifier
  * les clients dans la liste. </p>
- * 
- *  @author Damien GAIGA
+ *
+ * @author Damien GAIGA
  *
  */
 public class Clientele {
@@ -29,12 +29,10 @@ public class Clientele {
 // d'une variable de classe
 	private static int nombreClient = 0;
 
-
 //	Pourquoi utiliser un objet de type Hashmap/TreeMap ?
 //	Pour fournir à chaque nouveau client un identifiant associé
 //	Même si l'on supprime des éléments, le numéro client ne change pas (contrairement
 //	à un indice dans un tableau qui change si l'on supprime/ajout/réordonne des éléments
-
 	private HashMap<Integer, Client> clientele;
 
 	/**
@@ -45,9 +43,9 @@ public class Clientele {
 	}
 
 	/**
-	 *	Modifie le chiffre d'affaires d'un client présent dans la liste clientèle
-	 * 
-	 * 
+	 * Modifie le chiffre d'affaires d'un client présent dans la liste clientèle
+	 *
+	 *
 	 * @param num Index du client dans la HashMap
 	 * @param chiffre Chiffre d'affaires à ajouter au client
 	 */
@@ -56,22 +54,20 @@ public class Clientele {
 			Client clientAmettreAjour = clientele.get(num);
 			// On ajoute du CA au client, on ne peut donc rien soustraire, on interdit
 			// les valeurs négatives
-			if (chiffre<0){
+			if (chiffre < 0) {
 				throw new NotPositiveValueException();
 			} else {
+				// On tente de promouvoir le client en fonction de son CA si nécessaire
 				clientAmettreAjour.setCaClient(clientAmettreAjour.getCaClient().getMontant() + chiffre);
-			}
-
-			// On tente de promouvoir le client en fonction de son CA
-			try {
-				updateClient(num, new ClientPrivilegie(clientAmettreAjour));
-			} catch (NotImportantConsumerException ex) {
-				// Affichage uniquement pour deboggage
-				// Ce doit être transparent pour l'utilisateur
-				System.err.println(ex);
+				try {
+					updateClient(num, new ClientPrivilegie(clientAmettreAjour));
+				} catch (NotImportantConsumerException ex) {
+					// Affichage uniquement pour deboggage
+					// Ce doit être transparent pour l'utilisateur
+					System.err.println(ex);
+				}
 			}
 			affiche();
-
 		} else {
 			throw new ClientNotExistsException();
 
@@ -82,10 +78,11 @@ public class Clientele {
 	/**
 	 *
 	 * Ajoute un client à la liste clientèle
-	 * 
-	 * <p>NOTA : Je ne teste pas s'il existe des homonymes. L'élément différenciant
+	 *
+	 * <p>
+	 * NOTA : Je ne teste pas s'il existe des homonymes. L'élément différenciant
 	 * sera l'index du client dans la HashMap</p>
-	 * 
+	 *
 	 * @param clientAajouter Objet client à ajouter à la HashMap
 	 */
 	public void addClient(Client clientAajouter) {
@@ -102,13 +99,13 @@ public class Clientele {
 			affiche();
 		}
 	}
-	
 
 	/**
 	 *
 	 * Supprime un client à la liste clientèle
-	 * 
-	 * @param indexClientAsupprimer Supprimer un client de la liste suivant son index
+	 *
+	 * @param indexClientAsupprimer Supprimer un client de la liste suivant son
+	 * index
 	 */
 	public void delClient(int indexClientAsupprimer) {
 
@@ -125,8 +122,9 @@ public class Clientele {
 	/**
 	 *
 	 * Mettre à jour un client de la liste
-	 * 
-	 * @param indexClientAmettreAjour Index du client sur lequel porte la mise à jour des données
+	 *
+	 * @param indexClientAmettreAjour Index du client sur lequel porte la mise à
+	 * jour des données
 	 * @param clientAmettreAjour Objet client à modifier dans la HashMap
 	 */
 	public void updateClient(int indexClientAmettreAjour, Client clientAmettreAjour) {
@@ -138,15 +136,13 @@ public class Clientele {
 
 		}
 	}
-	
-	
+
 	// METHODE AFFICHE A VERTU PEDAGOGIQUE - NE RESPECTE PAS LE MVC
-	
 	/**
 	 *
-	 * Afficher la liste des clients ordonnés suivant suivant l'ordre décroissant
-	 * de leur chiffre d'affaires
-	 * 
+	 * Afficher la liste des clients ordonnés suivant suivant l'ordre
+	 * décroissant de leur chiffre d'affaires
+	 *
 	 */
 	public void affiche() {
 
@@ -173,10 +169,10 @@ public class Clientele {
 	}
 
 	/**
-	 *	Affiche le nombre de clients dans la liste clientèle
-	 * 
+	 * Affiche le nombre de clients dans la liste clientèle
+	 *
 	 * @see nombreClient
-	 * 
+	 *
 	 */
 	public void afficheNombreClient() {
 		System.out.println(String.format("Il y a : %s client(s) enregistré(s)", nombreClient));
