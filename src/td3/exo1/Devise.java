@@ -5,15 +5,15 @@ import td2.exo1.Exceptions.NoMoneyException;
 public class Devise {
 
 	// Attributs
-	private NomDevises nomDevise;
+	private String nomDevise;
 
 	//Constructeur
-	public Devise(NomDevises nomDevise) throws NoMoneyException {
+	public Devise(String nomDevise) throws NoMoneyException {
 		this.nomDevise = nomDevise;
 	}
 
 	public String getNomDevise() {
-		return this.nomDevise.getSymbol();
+		return this.nomDevise;
 	}
 
 	// Fonctions speciales
@@ -28,13 +28,14 @@ public class Devise {
 		Devise d = (Devise) o;
 		return d.getNomDevise().equals(this.getNomDevise());
 	}
-	
+
 	// Permet l'utilisation de la méthode ContainsKey (obligatoire sinon, ça ne fonctionne pas)
 	@Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((nomDevise == null) ? 0 : nomDevise.hashCode());
-        return result;
-    }
+	public int hashCode() {
+		return this.nomDevise.hashCode();
+//        final int prime = 31;
+//        int result = 1;
+//        result = prime * result + ((nomDevise == null) ? 0 : nomDevise.hashCode());
+//        return result;
+	}
 }

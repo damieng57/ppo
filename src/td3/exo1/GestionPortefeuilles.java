@@ -30,10 +30,20 @@ public class GestionPortefeuilles {
 	public Portefeuille getPortefeuille(int index) {
 		return groupePortefeuilles.get(index);
 	}
+	
+	public int getSize(){
+		return groupePortefeuilles.size();
+	}
+	
+	public ArrayList<Portefeuille> getGestionnaire(){
+		return this.groupePortefeuilles;
+	}
 
 	public void affiche() {
+		int compteur = 1;
 		for (Portefeuille portefeuille : groupePortefeuilles) {
-			portefeuille.afficher();
+			System.out.println(String.format("%d. %s", compteur, portefeuille.toString()));
+			compteur++;
 		}
 	}
 }

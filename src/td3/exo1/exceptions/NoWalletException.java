@@ -1,4 +1,4 @@
-package td3.exo1.Exceptions;
+package td3.exo1.exceptions;
 // On hérite de RuntimeException pour éviter l'utilisation de throws, si erreur, elle
 // se produira à l'execution, pas à la compilation.
 
@@ -13,6 +13,7 @@ public class NoWalletException extends RuntimeException {
 		
 	}
 	
+	@Override
 	public String getMessage(){
 		return "Pas de portefeuille crée";
 	}

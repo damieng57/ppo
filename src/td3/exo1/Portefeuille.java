@@ -18,7 +18,7 @@ public class Portefeuille {
 	}
 
 	public void setNomPortefeuille(String nomPortefeuille) {
-		this.nomPortefeuille = nomPortefeuille;
+		this.nomPortefeuille = nomPortefeuille.toUpperCase();
 	}
 
 	// Constructeur
@@ -31,12 +31,12 @@ public class Portefeuille {
 	// Uniquement présente dans un but fonctionnelle et
 	// pour diviser le code en élément simple
 	// Afficher le montant présent pour une devise
-	private Devise deviseTemp(NomDevises nomDevise) {
+	private Devise deviseTemp(String nomDevise) {
 		// Création d'un objet devise pour recherche
 		return new Devise(nomDevise);
 	}
 
-	public Double montantDevise(NomDevises nomDevise) {
+	public Double montantDevise(String nomDevise) {
 		if (existeDevise(nomDevise)) {
 			// Retourne le montant associé à la devise
 			return listeDevise.get(deviseTemp(nomDevise));
@@ -45,7 +45,7 @@ public class Portefeuille {
 		}
 	}
 
-	private boolean existeDevise(NomDevises deviseAcherche) {
+	private boolean existeDevise(String deviseAcherche) {
 		return listeDevise.containsKey(deviseTemp(deviseAcherche));
 	}
 
@@ -55,8 +55,14 @@ public class Portefeuille {
 		return this.listeDevise.size();
 	}
 
+	
+	public HashMap<Devise, Double> getListeDevise(){
+		return this.listeDevise;
+	}
+	
+
 	// Ajouter une devise dans le porte-feuille avec un montant prédéfini
-	public void ajouterDevise(NomDevises nomDevise, Double montant) {
+	public void ajouterDevise(String nomDevise, Double montant) {
 		/* Ajoute des devises à ListeDevise
 		* Si la devise existe, on ajoute simplement
 		* le montant à la devise en portefeuille
@@ -69,7 +75,7 @@ public class Portefeuille {
 	}
 
 	// Ajouter une devise dans le porte-feuille avec un montant prédéfini
-	public void ajouterDevise(NomDevises nomDevise) {
+	public void ajouterDevise(String nomDevise) {
 		/* Ajoute des devises directement à partir d'un nom de devise
 		* issue de l'énumération
 		 */
@@ -77,7 +83,7 @@ public class Portefeuille {
 	}
 
 	// Supprimer une devise dans le porte-feuille
-	public void supprimerDevise(NomDevises nomDevise) {
+	public void supprimerDevise(String nomDevise) {
 		/* Supprimer des devises à ListeDevise
 		* Sinon alerte via CurrencyNotExistsException();
 		 */
@@ -89,7 +95,7 @@ public class Portefeuille {
 	}
 
 	// Sortir des devises du porte-feuille
-	public void sortirDeviseDuPortefeuille(NomDevises nomDevise, double montant) {
+	public void sortirDeviseDuPortefeuille(String nomDevise, double montant) {
 		// Reduire le montant sur la devise selectionnée
 		Devise deviseTemp = deviseTemp(nomDevise);
 		try {
@@ -99,13 +105,13 @@ public class Portefeuille {
 			} else {
 				throw new NoMoneyException();
 			}
-		} catch (NullPointerException e) {
+		} catch (NullPointerException | CurrencyNotExistsException e) {
 			throw new NoMoneyException();
 		}
 	}
+	
 	// Placer des devises dans le porte-feuille
-
-	public void mettreDeviseDansPortefeuille(NomDevises nomDevise, double montant) {
+	public void mettreDeviseDansPortefeuille(String nomDevise, double montant) {
 		// Augmenter le montant sur la devise selectionnée
 		//Devise deviseCourante = chercherDevise(nomDevise);
 		Devise deviseTemp = deviseTemp(nomDevise);
@@ -120,7 +126,7 @@ public class Portefeuille {
 	// Afficher les devises présentes dans le portefeuille
 	public void afficher() {
 		// Afficher les devises presentent dans le portefeuille
-		System.out.println(String.format("%s".toUpperCase(), nomPortefeuille));
+		System.out.println(String.format("%s", nomPortefeuille));
 
 		boolean flag = false;
 
@@ -137,10 +143,13 @@ public class Portefeuille {
 
 		System.out.println("FIN DU PORTEFEUILLE");
 	}
-
-	private Object deviseTemp() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	
+	@Override
+	public String toString(){
+		return this.nomPortefeuille;
 	}
+
+
 }
 
 //	Pour mémoire
