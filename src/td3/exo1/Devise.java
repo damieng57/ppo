@@ -1,8 +1,11 @@
 package td3.exo1;
 
+import java.io.Serializable;
 import td2.exo1.Exceptions.NoMoneyException;
 
-public class Devise {
+public class Devise implements Serializable {
+	
+	private static final long serialVersionUID = 0320171121L;
 
 	// Attributs
 	private String nomDevise;

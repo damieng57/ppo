@@ -5,13 +5,16 @@
  */
 package td3.exo1;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Damien
  */
-public class GestionPortefeuilles {
+public class GestionPortefeuilles implements Serializable {
+	
+	private static final long serialVersionUID = 0220171121L;
 
 	ArrayList<Portefeuille> groupePortefeuilles;
 

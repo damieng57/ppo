@@ -5,6 +5,8 @@ import td2.exo1.Exceptions.NoMoneyException;
 import td3.exo1.exceptions.NoWalletException;
 import td3.exo2.fichiersplats.ChargerPortefeuille;
 import td3.exo2.fichiersplats.SauvegarderPortefeuille;
+import td3.exo3.serialisation.ChargerBinPortefeuille;
+import td3.exo3.serialisation.SauvegarderBinPortefeuille;
 
 /**
  *
@@ -40,8 +42,13 @@ public class Console {
 	public static void startConsole() {
 
 
-		GestionPortefeuilles gestionPortefeuilles = new GestionPortefeuilles();
-		ChargerPortefeuille.charge(gestionPortefeuilles);
+		//GestionPortefeuilles gestionPortefeuilles = new GestionPortefeuilles();
+		//ChargerPortefeuille.charge(gestionPortefeuilles);
+		
+		GestionPortefeuilles gestionPortefeuilles = ChargerBinPortefeuille.charger();
+		
+		//SauvegarderBinPortefeuille.sauvegardeBinaire(gestionPortefeuilles);
+		
 		System.out.println("*** GESTION DE PORTEFEUILLE ***");
 		menuPrincipal(gestionPortefeuilles);
 	}

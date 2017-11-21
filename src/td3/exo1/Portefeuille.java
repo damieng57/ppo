@@ -1,11 +1,14 @@
 package td3.exo1;
 
+import java.io.Serializable;
 import td2.exo1.Exceptions.CurrencyNotExistsException;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import td2.exo1.Exceptions.NoMoneyException;
 
-public class Portefeuille {
+public class Portefeuille implements Serializable{
+	
+	private static final long serialVersionUID = 0120171121L;
 
 	// Attributs
 	// Liste des devises
