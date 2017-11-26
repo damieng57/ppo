@@ -1,0 +1,34 @@
+CREATE DATABASE gaiga4u_portefeuilles;
+USE gaiga4u_portefeuilles;
+
+CREATE TABLE Devise (
+    id_devise int not null auto_increment primary key,
+    nom_devise varchar(255)
+    );
+
+CREATE TABLE Portefeuille (
+    id_portefeuille int not null auto_increment primary key,
+    nom_portefeuille varchar(255)
+    );
+
+CREATE TABLE Contenu (
+    id_contenu int not null auto_increment primary key,
+	id_portefeuille int not null,
+	id_devise int not null,
+	montant float not null,
+	FOREIGN KEY (id_portefeuille) REFERENCES Portefeuille(id_portefeuille),
+	FOREIGN KEY (id_devise) REFERENCES Devise(id_devise)
+    );
+
+
+INSERT INTO Portefeuille (nom_portefeuille) values ('damien'); 
+INSERT INTO Portefeuille (nom_portefeuille) values ('sylia'); 
+INSERT INTO Portefeuille (nom_portefeuille) values ('vivian');
+
+INSERT INTO Devise (nom_devise) values ('euro'); 
+INSERT INTO Devise (nom_devise) values ('dollar'); 
+INSERT INTO Devise (nom_devise) values ('livre');
+
+INSERT INTO Contenu (id_devise, id_portefeuille, montant) VALUES (1, 1, 500);
+INSERT INTO Contenu (id_devise, id_portefeuille, montant) VALUES (2, 1, 900);
+INSERT INTO Contenu (id_devise, id_portefeuille, montant) VALUES (3, 3, 400);

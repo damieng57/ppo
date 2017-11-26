@@ -15,6 +15,10 @@ public class Portefeuille implements Serializable{
 	private String nomPortefeuille;
 	private HashMap<Devise, Double> listeDevise;
 
+	public Portefeuille() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+
 	// Getter/Setter nom du portefeuille
 	public String getNomPortefeuille() {
 		return nomPortefeuille;
