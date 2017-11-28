@@ -3,7 +3,8 @@ package td3.exo4.bdd;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import td3.exo1.Devise;
+import java.sql.Statement;
+import td3.exo4.bdd.Devise;
 
 /**
  *
@@ -12,6 +13,11 @@ import td3.exo1.Devise;
 public class DAODevise extends DAO<Devise> {
 
 	private static DAODevise instance;
+
+	// Requete recherche une devise en base de données
+	private String requeteDevise = "SELECT * FROM Devise WHERE nom_devise=?";
+	// Insert la devise en base de données (si n'existe pas)
+	private String requeteAjoutDevise = "INSERT INTO Devise (nom_devise) VALUES (?)";
 
 	private DAODevise() {
 	}
@@ -56,7 +62,7 @@ public class DAODevise extends DAO<Devise> {
 	 * @return Devise
 	 */
 	public Devise getByNom(String nom) {
-		String requetePreparee = "SELECT id_devise, nom_devise FROM Devise WHERE nom_devise=?";
+		String requetePreparee = "SELECT * FROM Devise WHERE nom_devise=?";
 
 		Devise devise = null;
 		try {
@@ -65,7 +71,7 @@ public class DAODevise extends DAO<Devise> {
 			requete.setString(1, nom);
 			ResultSet res = requete.executeQuery();
 			while (res.next()) {
-				devise = new Devise(res.getString(2));
+				devise = new Devise(res.getInt(1), res.getString(2));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -86,13 +92,48 @@ public class DAODevise extends DAO<Devise> {
 	 */
 	@Override
 	public void create(Devise obj) {
-		String requetePreparee = "INSERT INTO Devise (nom_devise) VALUES (?)";
+
+		// TODO : requète à basculer dans DAODevise
+		// Requete recherche une devise en base de données
+		String requeteDevise = "SELECT * FROM Devise WHERE nom_devise=?";
+		//String requeteDevise = "SELECT * FROM Devise WHERE id_devise=? AND nom_devise=?";
+		// Insert la devise en base de données (si n'existe pas)
+		String requeteAjoutDevise = "INSERT INTO Devise (nom_devise) VALUES (?)";
 
 		try {
+			// On effectue la connexion
 			connexion = Connexion.getInstance();
-			PreparedStatement requete = connexion.prepareStatement(requetePreparee);
+
+			int idGenerateDevise = 0;
+
+			// Recherche de l'objet en base de données
+			PreparedStatement requete = connexion.prepareStatement(requeteDevise, Statement.RETURN_GENERATED_KEYS);
+			//requete.setInt(1, obj.getIdDevise());
 			requete.setString(1, obj.getNomDevise());
-			requete.executeQuery();
+			ResultSet resultat = requete.executeQuery();
+			
+			// Si résultat :
+			//Recupère l'id
+			if (resultat.next()) {
+				idGenerateDevise = resultat.getInt(1);
+				//System.out.println("C - La devise existe, son id est le : " + idGenerateDevise);
+			} else {
+				// Si pas de resultat :
+				// on ajoute la devise et on stocke l'id de la devise crée
+				requete = connexion.prepareStatement(requeteAjoutDevise, Statement.RETURN_GENERATED_KEYS);
+				requete.setString(1, obj.getNomDevise());
+				requete.executeUpdate();
+
+				resultat = requete.getGeneratedKeys();
+
+				if (resultat.next()) {
+					idGenerateDevise = resultat.getInt(1);
+
+					//System.out.println("D - La devise n'existait pas, on la crée, son id est le : " + idGenerateDevise);
+				}
+
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -113,7 +154,7 @@ public class DAODevise extends DAO<Devise> {
 			PreparedStatement requete = connexion.prepareStatement(requetePreparee);
 			requete.setString(1, obj.getNomDevise());
 			requete.setString(2, this.getByNom(obj.getNomDevise()).getNomDevise());
-			requete.executeQuery();
+			requete.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -133,7 +174,7 @@ public class DAODevise extends DAO<Devise> {
 			connexion = Connexion.getInstance();
 			PreparedStatement requete = connexion.prepareStatement(requetePreparee);
 			requete.setString(2, this.getByNom(obj.getNomDevise()).getNomDevise());
-			requete.executeQuery();
+			requete.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,5 +1,6 @@
-package td3.exo1;
+package td3.exo4.bdd;
 
+import td3.exo1.*;
 import java.io.Serializable;
 import td2.exo1.Exceptions.CurrencyNotExistsException;
 import java.util.HashMap;
@@ -12,6 +13,8 @@ public class Portefeuille implements Serializable{
 
 	// Attributs
 	// Liste des devises
+	private int idPortefeuille;
+
 	private String nomPortefeuille;
 	private HashMap<Devise, Double> listeDevise;
 
@@ -28,6 +31,14 @@ public class Portefeuille implements Serializable{
 		this.nomPortefeuille = nomPortefeuille.toUpperCase();
 	}
 
+	public int getIdPortefeuille() {
+		return idPortefeuille;
+	}
+	
+	public void setIdPortefeuille(int idPortefeuille) {
+		this.idPortefeuille = idPortefeuille;
+	}
+	
 	// Constructeur
 	public Portefeuille(String nomPortefeuille) {
 		this.setNomPortefeuille(nomPortefeuille);

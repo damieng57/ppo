@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/DAO.java</file>
-            <file>file:/G:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/Main.java</file>
-            <file>file:/G:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/Connexion.java</file>
+            <file>file:/D:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/DAODevise.java</file>
+            <file>file:/D:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/Portefeuille.java</file>
+            <file>file:/D:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/DAOPortefeuille.java</file>
         </group>
     </open-files>
 </project-private>

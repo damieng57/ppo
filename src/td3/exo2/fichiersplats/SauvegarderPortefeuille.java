@@ -13,7 +13,7 @@ import td3.exo1.Portefeuille;
 
 /**
  *
- * @author gaiga4u
+ * @author Damien GAIGA
  */
 public class SauvegarderPortefeuille {
 

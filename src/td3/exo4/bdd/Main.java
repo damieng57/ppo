@@ -6,17 +6,50 @@
 package td3.exo4.bdd;
 
 import java.sql.Connection;
-import td3.exo4.bdd.Connexion;
 
 /**
  *
  * @author user
  */
 public class Main {
-	
+
 	public static void main(String[] args) {
 		Connection connexion = Connexion.getInstance();
-		Connexion.uneRequete(connexion);
+		//Connexion.testRequete(connexion);
+
+		// Création d'un objet portefeuilleA
+		Portefeuille portefeuilleA = new Portefeuille("PortefeuilleA");
+		// Ajout de devises
+		portefeuilleA.ajouterDevise("EURO", 549.90);
+		portefeuilleA.ajouterDevise("DOLLAR", 977.45);
+		portefeuilleA.ajouterDevise("LIVRE", 1297.57);
+
+		// Création d'un objet portefeuilleA
+		Portefeuille portefeuilleB = new Portefeuille("PortefeuilleB");
+		// Ajout de devises
+		portefeuilleB.ajouterDevise("EURO", 1452.90);
+		portefeuilleB.ajouterDevise("DOLLAR", 687.45);
+		portefeuilleB.ajouterDevise("LIVRE", 1370.57);
+
+		// Création ou récupération de l'objet DAO relative aux portefeuilles
+		DAO<Portefeuille> daoPortefeuille = DAOPortefeuille.getInstance();
+
+		// Ajout du portefeuilleA à la base de données
+		daoPortefeuille.create(portefeuilleA);
+
+		// Ajout du portefeuilleA à la base de données
+		daoPortefeuille.create(portefeuilleB);
+
+		// Création d'un objet portefeuilleA
+		Portefeuille portefeuilleC = new Portefeuille("PortefeuilleC");
+		// Ajout de devises
+		portefeuilleB.ajouterDevise("EURO", 75.12);
+		portefeuilleB.ajouterDevise("DOLLAR", 125.74);
+		portefeuilleB.ajouterDevise("LIVRE", 863.54);
+
+		// Ajout du portefeuilleA à la base de données
+		daoPortefeuille.create(portefeuilleC);
+
 	}
-	
+
 }
