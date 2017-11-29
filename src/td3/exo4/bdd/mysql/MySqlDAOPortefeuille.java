@@ -48,7 +48,7 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 				+ "WHERE Portefeuille.id_portefeuille=? "
 				+ "AND Portefeuille.id_portefeuille=Contenu.id_portefeuille "
 				+ "AND Contenu.id_devise=Devise.id_devise";
-		
+
 		String requeteSurId = "SELECT id_portefeuille, nom_portefeuille FROM Portefeuille WHERE id_portefeuille=?";
 
 		Portefeuille portefeuille = null;
@@ -243,23 +243,38 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 	 */
 	@Override
 	public void update(Portefeuille obj) {
-		String requeteUpdate = "UPDATE Portefeuille, Devise, Contenu SET nom_portefeuille=? WHERE id_portefeuille=?";
+		// L'objectif est de mettre le montant à jour + le nom
+		
+		String requeteUpdate = "UPDATE Portefeuille, Devise, Contenu "
+				+ "SET montant=?, nom_portefeuille=? "
+				+ "WHERE Contenu.id_portefeuille=? "
+				+ "AND Devise.nom_devise=? "
+				+ "AND Devise.id_devise=Contenu.id_devise "
+				+ "AND Portefeuille.id_portefeuille=Contenu.id_portefeuille";
 
-		// TODO : Tester si la devise que l'on veut insérer existe!!!
-		
-		
 		// Si id de l'objet est supérieur à -1, il est synchro avec la base
 		// On peut faire l'update.
 		if (obj.getIdPortefeuille() > -1) {
 			try {
-				connexion = Connexion.getInstance();
-				PreparedStatement requete = connexion.prepareStatement(requeteUpdate);
-				requete.setString(1, obj.getNomPortefeuille());
-				requete.setInt(2, obj.getIdPortefeuille());
-				requete.execute();
+
+				// On met à jour chaque ligne du portefeuille à chaque mise à jour
+				// même si qu'une ligne modifiée...
+				// On peut optimiser!
+				for (Map.Entry<Devise, Double> entry : obj.getListeDevise().entrySet()) {
+					Devise cle = entry.getKey();
+					Double valeur = entry.getValue();
+
+					PreparedStatement requete = connexion.prepareStatement(requeteUpdate);
+
+					requete.setDouble(1, valeur);
+					requete.setString(2, obj.getNomPortefeuille());
+					requete.setInt(3, obj.getIdPortefeuille());
+					requete.setString(4, cle.getNomDevise());
+					requete.execute();
+				}
+
 			} catch (SQLException e) {
 				e.printStackTrace();
-				System.out.println("*******");
 				//System.out.println("Erreur SQL : " + e.getMessage());
 			}
 		} else {
@@ -285,7 +300,8 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 	 * @param Portefeuille obj
 	 */
 	@Override
-	public void delete(Portefeuille obj) {
+	public void delete(Portefeuille obj
+	) {
 		String requeteDeleteContenu = "DELETE FROM Contenu WHERE id_portefeuille=?";
 
 		String requeteDelete = "DELETE FROM Portefeuille WHERE id_portefeuille=?";

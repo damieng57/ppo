@@ -45,19 +45,31 @@ public class Main {
 		daoPortefeuille.create(portefeuilleB);
 
 		// Récupération du portefeuille B en base de données
+		System.out.println("------Ajout de l'objet en base--------");
+		Portefeuille pa = daoPortefeuille.getByNom("PortefeuilleA");
+		pa.afficher();
+		System.out.println("--- Fin Ajout de l'objet en base ----");
+
+		// Récupération du portefeuille B en base de données
 		Portefeuille pb = daoPortefeuille.getByNom("PortefeuilleB");
-		pb.afficher();
+		//pb.afficher();
 
 		// Suppression du portefeuille B en base de données
 		daoPortefeuille.delete(pb);
 		// daoPortefeuille.delete(portefeuilleB);
 
-		// Modification du portefeuille A
-		portefeuilleA.ajouterDevise("EURO", 1000.0);
+		// Modification du portefeuille A qui va devenir portefeuille C
+		System.out.println("------Mise à jour de l'objet--------");
+		pa.mettreDeviseDansPortefeuille("EURO", 9999.0);
+		pa.setNomPortefeuille("PortefeuilleC");
+		pa.afficher();
+		System.out.println("---Fin de mise à jour de l'objet----");
 
-		// Mise à jour du portefeuille A
-		Portefeuille pa = daoPortefeuille.getByNom("PortefeuilleA");
-		factory.getDaoPortefeuille().update(pa);
+		// Mise à jour du portefeuille A (devenu C)
+		daoPortefeuille.update(pa);
+		// On recree l'objet pa depuis les éléments en base de données
+		pa = daoPortefeuille.getByNom("PortefeuilleC");
+		// On vérifie que la mise à jour effective
 		pa.afficher();
 
 	}
