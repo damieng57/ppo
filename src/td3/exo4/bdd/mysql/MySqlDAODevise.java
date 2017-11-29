@@ -1,30 +1,31 @@
-package td3.exo4.bdd;
+package td3.exo4.bdd.mysql;
 
+import td3.exo4.bdd.DAO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import td3.exo4.bdd.Connexion;
 import td3.exo4.bdd.Devise;
 
 /**
  *
  * @author Damien GAIGA
  */
-public class DAODevise extends DAO<Devise> {
+public class MySqlDAODevise extends DAO<Devise> {
 
-	private static DAODevise instance;
+	private static MySqlDAODevise instance;
 
-	// Requete recherche une devise en base de données
-	private String requeteDevise = "SELECT * FROM Devise WHERE nom_devise=?";
-	// Insert la devise en base de données (si n'existe pas)
-	private String requeteAjoutDevise = "INSERT INTO Devise (nom_devise) VALUES (?)";
-
-	private DAODevise() {
+	// Constructeur privé
+	private MySqlDAODevise(Connection connexion) {
+		super(connexion);
 	}
 
-	public static DAODevise getInstance() {
+	// Singleton
+	public static MySqlDAODevise getInstance(Connection connexion) {
 		if (instance == null) {
-			instance = new DAODevise();
+			instance = new MySqlDAODevise(connexion);
 		}
 		return instance;
 	}
@@ -47,12 +48,12 @@ public class DAODevise extends DAO<Devise> {
 			ResultSet res = requete.executeQuery();
 			while (res.next()) {
 				devise = new Devise(res.getString(2));
+				return devise;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		return devise;
+		return null;
 	}
 
 	/**
@@ -66,18 +67,19 @@ public class DAODevise extends DAO<Devise> {
 
 		Devise devise = null;
 		try {
-			connexion = Connexion.getInstance();
 			PreparedStatement requete = connexion.prepareStatement(requetePreparee);
 			requete.setString(1, nom);
 			ResultSet res = requete.executeQuery();
 			while (res.next()) {
 				devise = new Devise(res.getInt(1), res.getString(2));
+				// On part du principe que le nom de devise est unique, donc le premier
+				// résultat doit aussi être le seul !
+				return devise;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		return devise;
+		return null;
 	}
 
 	// EXTRAIT DU COURS
@@ -93,7 +95,6 @@ public class DAODevise extends DAO<Devise> {
 	@Override
 	public void create(Devise obj) {
 
-		// TODO : requète à basculer dans DAODevise
 		// Requete recherche une devise en base de données
 		String requeteDevise = "SELECT * FROM Devise WHERE nom_devise=?";
 		//String requeteDevise = "SELECT * FROM Devise WHERE id_devise=? AND nom_devise=?";
@@ -103,37 +104,28 @@ public class DAODevise extends DAO<Devise> {
 		try {
 			// On effectue la connexion
 			connexion = Connexion.getInstance();
-
 			int idGenerateDevise = 0;
+			PreparedStatement requete;
+			ResultSet resultat;
 
-			// Recherche de l'objet en base de données
-			PreparedStatement requete = connexion.prepareStatement(requeteDevise, Statement.RETURN_GENERATED_KEYS);
-			//requete.setInt(1, obj.getIdDevise());
-			requete.setString(1, obj.getNomDevise());
-			ResultSet resultat = requete.executeQuery();
-			
-			// Si résultat :
-			//Recupère l'id
-			if (resultat.next()) {
-				idGenerateDevise = resultat.getInt(1);
-				//System.out.println("C - La devise existe, son id est le : " + idGenerateDevise);
+			Devise temp = getByNom(obj.getNomDevise());
+
+			if (temp != null) {
+				// Récupérer l'id
+				idGenerateDevise = temp.getIdDevise();
+				// Sinon :
 			} else {
-				// Si pas de resultat :
-				// on ajoute la devise et on stocke l'id de la devise crée
+				// Créer le portefeuille suivant le nom de l'objet passé en paramètre
 				requete = connexion.prepareStatement(requeteAjoutDevise, Statement.RETURN_GENERATED_KEYS);
 				requete.setString(1, obj.getNomDevise());
 				requete.executeUpdate();
 
+				// Et récupérer l'id
 				resultat = requete.getGeneratedKeys();
-
 				if (resultat.next()) {
 					idGenerateDevise = resultat.getInt(1);
-
-					//System.out.println("D - La devise n'existait pas, on la crée, son id est le : " + idGenerateDevise);
 				}
-
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -147,16 +139,35 @@ public class DAODevise extends DAO<Devise> {
 	 */
 	@Override
 	public void update(Devise obj) {
-		String requetePreparee = "UPDATE Devise SET nom_devise=? WHERE id_devise=?";
+		String requeteUpdate = "UPDATE Devise SET nom_devise=? WHERE id_devise=?";
 
-		try {
-			connexion = Connexion.getInstance();
-			PreparedStatement requete = connexion.prepareStatement(requetePreparee);
-			requete.setString(1, obj.getNomDevise());
-			requete.setString(2, this.getByNom(obj.getNomDevise()).getNomDevise());
-			requete.execute();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		// Si id de l'objet est supérieur à -1, il est synchro avec la base
+		// On peut faire l'update.
+		if (obj.getIdDevise() > -1) {
+			try {
+				connexion = Connexion.getInstance();
+				PreparedStatement requete = connexion.prepareStatement(requeteUpdate);
+				requete.setString(1, obj.getNomDevise());
+				requete.setInt(2, obj.getIdDevise());
+				requete.execute();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("--------");
+				System.out.println("Erreur SQL : " + e.getMessage());
+			}
+		} else {
+			// Si l'id est à -1, on fait une recherche pour voir si
+			// par rapport au nom, on a quelque chose en base
+			obj = this.getByNom(obj.getNomDevise());
+
+			// Si rien n'est trouvé, on fait un create
+			if (obj.getIdDevise() == -1) {
+				this.create(obj);
+				// Si on a quelque chose, on fait un update
+			} else {
+				this.update(obj);
+			}
+
 		}
 	}
 
@@ -168,15 +179,33 @@ public class DAODevise extends DAO<Devise> {
 	 */
 	@Override
 	public void delete(Devise obj) {
-		String requetePreparee = "DELETE FROM Portefeuille WHERE id_portefeuille=?";
+		String requeteDeleteContenu = "DELETE FROM Contenu WHERE id_devise=?";
+		
+		String requeteDelete = "DELETE FROM Devise WHERE id_devise=?";
 
-		try {
-			connexion = Connexion.getInstance();
-			PreparedStatement requete = connexion.prepareStatement(requetePreparee);
-			requete.setString(2, this.getByNom(obj.getNomDevise()).getNomDevise());
-			requete.execute();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if (obj.getIdDevise() > -1) {
+			// Si l'id est supérieur à -1, on fait la suppression de l'id selectionné
+			try {
+				// On supprime d'abord les éléments dans contenu dépendant d'une devise
+				PreparedStatement requete = connexion.prepareStatement(requeteDeleteContenu);
+				requete.setInt(1, this.getByNom(obj.getNomDevise()).getIdDevise());
+				requete.execute();
+
+				// On supprime la devise en elle-même
+				requete = connexion.prepareStatement(requeteDelete);
+				requete.setInt(1, this.getByNom(obj.getNomDevise()).getIdDevise());
+				requete.execute();
+			} catch (SQLException e) {
+				System.out.println("Erreur SQL : " + e.getMessage());
+			}
+		} else {
+			// On recherche par nom
+			obj = this.getByNom(obj.getNomDevise());
+
+			// Si on trouve quelque chose, on tente de nouveau d'effacer l'entrée
+			if (obj.getIdDevise() > -1) {
+				this.delete(obj);
+			} // Sinon, c'est qu'il n'y rien à supprimer
 		}
 	}
 

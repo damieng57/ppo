@@ -6,6 +6,7 @@
 package td3.exo4.bdd;
 
 import java.sql.Connection;
+import td3.exo4.bdd.mysql.MySqlDAOPortefeuille;
 
 /**
  *
@@ -31,25 +32,33 @@ public class Main {
 		portefeuilleB.ajouterDevise("DOLLAR", 687.45);
 		portefeuilleB.ajouterDevise("LIVRE", 1370.57);
 
-		// Création ou récupération de l'objet DAO relative aux portefeuilles
-		DAO<Portefeuille> daoPortefeuille = DAOPortefeuille.getInstance();
+		// Création d'une DAO Factory pour une base MySQL
+		DAOFactory factory = DAOFactory.getDAOFactory(0);
+
+		// Création d'un DAO pour gérer les objets via SQL
+		MySqlDAOPortefeuille daoPortefeuille = (MySqlDAOPortefeuille) factory.getDaoPortefeuille();
 
 		// Ajout du portefeuilleA à la base de données
 		daoPortefeuille.create(portefeuilleA);
 
-		// Ajout du portefeuilleA à la base de données
+		// Ajout du portefeuilleB à la base de données
 		daoPortefeuille.create(portefeuilleB);
 
-		// Création d'un objet portefeuilleA
-		Portefeuille portefeuilleC = new Portefeuille("PortefeuilleC");
-		// Ajout de devises
-		portefeuilleB.ajouterDevise("EURO", 75.12);
-		portefeuilleB.ajouterDevise("DOLLAR", 125.74);
-		portefeuilleB.ajouterDevise("LIVRE", 863.54);
+		// Récupération du portefeuille B en base de données
+		Portefeuille pb = daoPortefeuille.getByNom("PortefeuilleB");
+		pb.afficher();
 
-		// Ajout du portefeuilleA à la base de données
-		daoPortefeuille.create(portefeuilleC);
+		// Suppression du portefeuille B en base de données
+		daoPortefeuille.delete(pb);
+		// daoPortefeuille.delete(portefeuilleB);
+
+		// Modification du portefeuille A
+		portefeuilleA.ajouterDevise("EURO", 1000.0);
+
+		// Mise à jour du portefeuille A
+		Portefeuille pa = daoPortefeuille.getByNom("PortefeuilleA");
+		factory.getDaoPortefeuille().update(pa);
+		pa.afficher();
 
 	}
-
 }

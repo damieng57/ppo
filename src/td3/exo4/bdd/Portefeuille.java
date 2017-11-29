@@ -1,14 +1,13 @@
 package td3.exo4.bdd;
 
-import td3.exo1.*;
 import java.io.Serializable;
 import td2.exo1.Exceptions.CurrencyNotExistsException;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import td2.exo1.Exceptions.NoMoneyException;
 
-public class Portefeuille implements Serializable{
-	
+public class Portefeuille implements Serializable {
+
 	private static final long serialVersionUID = 0120171121L;
 
 	// Attributs
@@ -19,7 +18,7 @@ public class Portefeuille implements Serializable{
 	private HashMap<Devise, Double> listeDevise;
 
 	public Portefeuille() {
-		
+
 	}
 
 	// Getter/Setter nom du portefeuille
@@ -34,13 +33,18 @@ public class Portefeuille implements Serializable{
 	public int getIdPortefeuille() {
 		return idPortefeuille;
 	}
-	
+
 	public void setIdPortefeuille(int idPortefeuille) {
 		this.idPortefeuille = idPortefeuille;
 	}
-	
+
 	// Constructeur
 	public Portefeuille(String nomPortefeuille) {
+		this(-1, nomPortefeuille);
+	}
+
+	public Portefeuille(int idPortefeuille, String nomPortefeuille) {
+		this.setIdPortefeuille(idPortefeuille);
 		this.setNomPortefeuille(nomPortefeuille);
 		listeDevise = new HashMap<>();
 	}
@@ -73,11 +77,9 @@ public class Portefeuille implements Serializable{
 		return this.listeDevise.size();
 	}
 
-	
-	public HashMap<Devise, Double> getListeDevise(){
+	public HashMap<Devise, Double> getListeDevise() {
 		return this.listeDevise;
 	}
-	
 
 	// Ajouter une devise dans le porte-feuille avec un montant prédéfini
 	public void ajouterDevise(String nomDevise, Double montant) {
@@ -127,7 +129,7 @@ public class Portefeuille implements Serializable{
 			throw new NoMoneyException();
 		}
 	}
-	
+
 	// Placer des devises dans le porte-feuille
 	public void mettreDeviseDansPortefeuille(String nomDevise, double montant) {
 		// Augmenter le montant sur la devise selectionnée
@@ -161,12 +163,11 @@ public class Portefeuille implements Serializable{
 
 		System.out.println("FIN DU PORTEFEUILLE");
 	}
-	
+
 	@Override
-	public String toString(){
+	public String toString() {
 		return this.nomPortefeuille;
 	}
-
 
 }
 
