@@ -5,7 +5,6 @@
  */
 package td3.exo4.bdd;
 
-import java.sql.Connection;
 import td3.exo4.bdd.mysql.MySqlDAODevise;
 import td3.exo4.bdd.mysql.MySqlDAOPortefeuille;
 
@@ -45,11 +44,11 @@ public class Main {
 		// Récupération du portefeuille henri en base de données
 		Portefeuille pa = daoPortefeuille.getByNom("henri");
 		pa.afficher();
-
+		
 		// Récupération du portefeuille aurelie en base de données
 		Portefeuille pb = daoPortefeuille.getByNom("aurelie");
 		pb.afficher();
-
+		
 		// Suppression du portefeuille henri en base de données
 		daoPortefeuille.delete(pa);
 		
@@ -57,7 +56,6 @@ public class Main {
 		// NB : Ajoute la valeur fournie à l'existant
 		pb.mettreDeviseDansPortefeuille("EURO", 10000.0);
 		daoPortefeuille.update(pb);
-			
 		
 		// Teste sur les devises
 		// Création d'objets de type devises
@@ -73,6 +71,6 @@ public class Main {
 		// Récupération d'un objet devise depuis la base
 		Devise db = daodevise.getByNom("ROUBLE");
 
-		daodevise.delete(deviseA);
+
 	}
 }
