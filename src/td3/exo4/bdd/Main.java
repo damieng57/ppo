@@ -6,6 +6,7 @@
 package td3.exo4.bdd;
 
 import java.sql.Connection;
+import td3.exo4.bdd.mysql.MySqlDAODevise;
 import td3.exo4.bdd.mysql.MySqlDAOPortefeuille;
 
 /**
@@ -15,9 +16,6 @@ import td3.exo4.bdd.mysql.MySqlDAOPortefeuille;
 public class Main {
 
 	public static void main(String[] args) {
-		Connection connexion = Connexion.getInstance();
-		//Connexion.testRequete(connexion);
-
 		// Création d'un objet portefeuilleA
 		Portefeuille portefeuilleA = new Portefeuille("PortefeuilleA");
 		// Ajout de devises
@@ -71,6 +69,27 @@ public class Main {
 		pa = daoPortefeuille.getByNom("PortefeuilleC");
 		// On vérifie que la mise à jour effective
 		pa.afficher();
+		
+		
+		// Teste sur les devises
+		// Création d'objets de type devises
+		Devise deviseA = new Devise("YEN");
+		Devise deviseB = new Devise("ROUBLE");
+				
+		MySqlDAODevise daodevise = (MySqlDAODevise) factory.getDaoDevise();
+		
+		// Enregistrement des objets devises en base
+		daodevise.create(deviseA);
+		daodevise.create(deviseB);
+		
+		// Récupération d'un objet devise depuis la base
+		Devise db = daodevise.getByNom("ROUBLE");
 
+		// Modification d'un objet devise
+		db.setNomDevise("YUAN");
+		daodevise.update(db);
+		
+		
+		daodevise.delete(deviseA);
 	}
 }

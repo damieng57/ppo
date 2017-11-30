@@ -95,8 +95,6 @@ public class MySqlDAODevise extends DAO<Devise> {
 	@Override
 	public void create(Devise obj) {
 
-		// Requete recherche une devise en base de données
-		String requeteDevise = "SELECT * FROM Devise WHERE nom_devise=?";
 		//String requeteDevise = "SELECT * FROM Devise WHERE id_devise=? AND nom_devise=?";
 		// Insert la devise en base de données (si n'existe pas)
 		String requeteAjoutDevise = "INSERT INTO Devise (nom_devise) VALUES (?)";

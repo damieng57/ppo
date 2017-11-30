@@ -4,7 +4,7 @@ import java.io.Serializable;
 import td2.exo1.Exceptions.NoMoneyException;
 
 public class Devise implements Serializable {
-	
+
 	private static final long serialVersionUID = 0320171121L;
 
 	// Attributs
@@ -17,6 +17,10 @@ public class Devise implements Serializable {
 
 	public String getNomDevise() {
 		return this.nomDevise;
+	}
+
+	public void setNomDevise(String nomDevise) {
+		this.nomDevise = nomDevise;
 	}
 
 	// Fonctions speciales
