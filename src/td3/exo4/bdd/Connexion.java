@@ -8,6 +8,10 @@ import java.nio.file.Paths;
 import java.sql.*;
 import java.util.Properties;
 
+/**
+ *
+ * @author Damien GAIGA
+ */
 public class Connexion {
 
 	private static Connection connexion;
@@ -25,15 +29,21 @@ public class Connexion {
 		}
 	}
 
+	/**
+	 *
+	 * @return Connection
+	 */
 	public static Connection getInstance() {
-
 		if (connexion == null) {
 			new Connexion();
 		}
 		return Connexion.connexion;
-
 	}
 
+	/**
+	 *
+	 * @return infoAcces String[]
+	 */
 	public static String[] getAcces() {
 
 		String infoAcces[] = new String[5];
@@ -46,8 +56,8 @@ public class Connexion {
 
 		Properties accesBdd = new Properties();
 		File fBdd = new File(fichier);
-		try {
-			FileInputStream source = new FileInputStream(fBdd);
+		try (FileInputStream source = new FileInputStream(fBdd)) {
+
 			accesBdd.loadFromXML(source);
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -60,35 +70,5 @@ public class Connexion {
 		infoAcces[4] = accesBdd.getProperty("adresse_ip");
 
 		return infoAcces;
-	}
-
-	public static void testRequete(Connection connexion) {
-		try {
-			//Statement requete = connexion.createStatement();
-			//ResultSet res = requete.executeQuery("select * from Portefeuille");
-
-			PreparedStatement requete = connexion.prepareStatement("select id_portefeuille, nom_portefeuille from Portefeuille where id_portefeuille = ?");
-			requete.setInt(1, 2);
-			ResultSet res = requete.executeQuery();
-
-			while (res.next()) {
-				int id = res.getInt("id_portefeuille");
-				String nom = res.getString("nom_portefeuille");
-				System.out.println(id + " : " + nom);
-			}
-
-			if (res != null) {
-				res.close();
-			}
-			if (requete != null) {
-				requete.close();
-			}
-			if (connexion != null) {
-				connexion.close();
-			}
-
-		} catch (SQLException sqle) {
-			System.out.println("Pb select" + sqle.getMessage());
-		}
 	}
 }

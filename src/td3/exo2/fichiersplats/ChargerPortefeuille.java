@@ -1,74 +1,54 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package td3.exo2.fichiersplats;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Enumeration;
-import java.util.Properties;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import td3.exo1.ChargerDevise;
 import td3.exo1.GestionPortefeuilles;
 import td3.exo1.Portefeuille;
 
 /**
  *
- * @author gaiga4u
+ * @author Damien GAIGA
  */
 public class ChargerPortefeuille {
 
-	// Fonction annonyme
-	private static final FilenameFilter iniFileFilter = new FilenameFilter() {
-		@Override
-		public boolean accept(File dir, String name) {
-			return name.endsWith(".ini");
-		}
-	};
+	public static GestionPortefeuilles charger() {
 
-	public static void charge(GestionPortefeuilles gestionPortefeuilles) {
-
-		// A améliorer si j'ai le temps
-		Path currentRelativePath = Paths.get("");
-		String cheminDesfichiers = currentRelativePath.toAbsolutePath().toString() + "\\src\\td3\\exo2\\";
-		
-		final Properties loadProperties = new Properties();
-		InputStream input = null;
+		GestionPortefeuilles obj = new GestionPortefeuilles();
+		Portefeuille portefeuille = new Portefeuille();
+		Scanner sc = null;
+		ArrayList<String> listeDevise = ChargerDevise.liste();
 
 		try {
-			File repertoire = new File(cheminDesfichiers);
-			File[] files = repertoire.listFiles(iniFileFilter);
-			
-			for (File file : files) {			
-				input = new FileInputStream(file);
-
-				// Charger les fichiers properties
-				loadProperties.load(input);
-				Enumeration e = loadProperties.propertyNames();
-
-				Portefeuille portefeuille = new Portefeuille(loadProperties.getProperty("START"));
-
-				while (e.hasMoreElements()) {
-					String key = (String) e.nextElement();
-					if (!key.equals("START") && !key.equals("END")) {
-						portefeuille.mettreDeviseDansPortefeuille(key, Double.valueOf(loadProperties.getProperty(key)));
-					}
+			sc = new Scanner(new File("src\\td3\\exo2\\save.txt"));
+			while (sc.hasNextLine()) {
+				
+				String next = sc.nextLine();
+				String[] table = next.split(" : ");
+								
+				if (next.equals("FIN DU PORTEFEUILLE")) {
+					portefeuille.afficher();
+					obj.addPortefeuille(portefeuille);
+				} else if (listeDevise.contains(table[0])) {
+					portefeuille.mettreDeviseDansPortefeuille(table[0], Double.valueOf(table[1]));
+				} else {				
+					portefeuille = new Portefeuille(next);
 				}
-				gestionPortefeuilles.addPortefeuille(portefeuille);
 			}
+			return obj;
 
-		} catch (final IOException ex) {
+		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
 		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (final IOException e) {
-					e.printStackTrace();
-				}
-			}
+			sc.close();
 		}
-
+		return null;
 	}
-
 }

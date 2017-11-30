@@ -21,13 +21,13 @@ CREATE TABLE Contenu (
     );
 
 
-INSERT INTO Portefeuille (nom_portefeuille) values ('damien'); 
-INSERT INTO Portefeuille (nom_portefeuille) values ('sylia'); 
-INSERT INTO Portefeuille (nom_portefeuille) values ('vivian');
+INSERT INTO Portefeuille (nom_portefeuille) values ('DAMIEN'); 
+INSERT INTO Portefeuille (nom_portefeuille) values ('SYLIA'); 
+INSERT INTO Portefeuille (nom_portefeuille) values ('VIVIAN');
 
-INSERT INTO Devise (nom_devise) values ('euro'); 
-INSERT INTO Devise (nom_devise) values ('dollar'); 
-INSERT INTO Devise (nom_devise) values ('livre');
+INSERT INTO Devise (nom_devise) values ('EURO'); 
+INSERT INTO Devise (nom_devise) values ('DOLLAR'); 
+INSERT INTO Devise (nom_devise) values ('LIVRE');
 
 INSERT INTO Contenu (id_devise, id_portefeuille, montant) VALUES (1, 1, 500);
 INSERT INTO Contenu (id_devise, id_portefeuille, montant) VALUES (2, 1, 900);

@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/DAOPortefeuille.java</file>
-            <file>file:/G:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/Portefeuille.java</file>
-            <file>file:/G:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd.properties</file>
-            <file>file:/G:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/Devise.java</file>
-            <file>file:/G:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/DAO.java</file>
-            <file>file:/G:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/DAODevise.java</file>
-            <file>file:/G:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/Main.java</file>
+            <file>file:/D:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/mysql/MySqlDAOFactory.java</file>
+            <file>file:/D:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo2/save.txt</file>
+            <file>file:/D:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/mysql/MySqlDAOPortefeuille.java</file>
+            <file>file:/D:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo1/ChargerDevise.java</file>
+            <file>file:/D:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/Connexion.java</file>
+            <file>file:/D:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo2/fichiersplats/SauvegarderPortefeuille.java</file>
+            <file>file:/D:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo2/fichiersplats/ChargerPortefeuille.java</file>
+            <file>file:/D:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo4/bdd/creation_bdd.txt</file>
+            <file>file:/D:/Users/Damien/Documents/workspace/Java/ppo2017_GAIGA/src/td3/exo1/Console.java</file>
         </group>
     </open-files>
 </project-private>

@@ -165,8 +165,8 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 
 			// Ajout du portefeuille dans la table portefeuille
 			// Recherche du portefeuille en base suivant le nom
-			// S'il existe en base de données
 			Portefeuille temp = getByNom(obj.getNomPortefeuille());
+			// S'il existe en base de données
 			if (temp != null) {
 				// Récupérer l'id
 				idGeneratePortefeuille = temp.getIdPortefeuille();

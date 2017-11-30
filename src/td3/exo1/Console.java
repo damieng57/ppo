@@ -4,7 +4,9 @@ import td1.Saisie;
 import td2.exo1.Exceptions.NoMoneyException;
 import td3.exo1.exceptions.NoWalletException;
 import td3.exo2.fichiersplats.ChargerPortefeuille;
+import td3.exo2.fichiersplats.ChargerPortefeuilleProperties;
 import td3.exo2.fichiersplats.SauvegarderPortefeuille;
+import td3.exo2.fichiersplats.SauvegarderPortefeuilleProperties;
 import td3.exo3.serialisation.ChargerBinPortefeuille;
 import td3.exo3.serialisation.SauvegarderBinPortefeuille;
 
@@ -45,7 +47,7 @@ public class Console {
 		//GestionPortefeuilles gestionPortefeuilles = new GestionPortefeuilles();
 		//ChargerPortefeuille.charge(gestionPortefeuilles);
 		
-		GestionPortefeuilles gestionPortefeuilles = ChargerBinPortefeuille.charger();
+		GestionPortefeuilles gestionPortefeuilles = ChargerPortefeuille.charger();
 		
 		//SauvegarderBinPortefeuille.sauvegardeBinaire(gestionPortefeuilles);
 		

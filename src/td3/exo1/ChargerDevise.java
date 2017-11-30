@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Properties;
 
 /**
@@ -30,12 +31,21 @@ public class ChargerDevise {
 			ioe.printStackTrace();
 		}
 	}
-	
+
 	// Récupérer le symbole associé à un nom de devise
 	public static String getSymbol(String nomDevise) {
 
 		return accesBdd.getProperty(nomDevise);
 
+	}
+
+	public static ArrayList<String> liste() {
+		//Object[] listeDevise = accesBdd.stringPropertyNames().toArray();
+		ArrayList<String> listeDevise = new ArrayList<>();
+		for (Object valeur : accesBdd.keySet()) {
+			listeDevise.add(accesBdd.getProperty((String) valeur));
+		}
+		return listeDevise;
 	}
 
 	public static void affiche() {

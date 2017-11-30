@@ -1,6 +1,5 @@
 package td3.exo4.bdd;
 
-import td3.exo1.*;
 import java.io.Serializable;
 import td2.exo1.Exceptions.NoMoneyException;
 
@@ -57,9 +56,5 @@ public class Devise implements Serializable {
 	@Override
 	public int hashCode() {
 		return this.nomDevise.hashCode();
-//        final int prime = 31;
-//        int result = 1;
-//        result = prime * result + ((nomDevise == null) ? 0 : nomDevise.hashCode());
-//        return result;
 	}
 }
