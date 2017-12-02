@@ -354,34 +354,4 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 			} // Sinon, c'est qu'il n'y rien à supprimer
 		}
 	}
-	
-	
-	@Override
-	public void display() {
-		String requeteDisplayContenu = "SELECT * FROM Portefeuille, Devise, Contenu "
-				+ "WHERE Portefeuille.id_portefeuille=Contenu.id_portefeuille "
-				+ "AND Devise.id_devise=Contenu.id_devise";
-
-		String requeteDisplayPortefeuille = "SELECT * FROM Portefeuille";
-
-		PreparedStatement requete = null;
-		ResultSet resultat = null;
-		
-
-			try {
-				// On supprime d'abord les éléments dans contenu dépendant d'un portefeuille
-				requete = connexion.prepareStatement(requeteDisplayPortefeuille);
-				resultat = requete.executeQuery();
-				
-				while (resultat.next()) {
-					System.out.println(resultat.next());
-				}
-
-			} catch (SQLException e) {
-				System.out.println("Erreur SQL : " + e.getMessage());
-			} finally {
-				try { if (resultat != null) { resultat.close();}} catch (SQLException e) {}
-				try { if (requete != null) { requete.close();}} catch (SQLException e) {}
-			}
-	}
 }

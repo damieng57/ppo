@@ -45,11 +45,4 @@ public abstract class DAO<T> {
 	 */
 	public abstract void delete(T obj);
 
-	/**
-	 * Permet de récupérer les éléments d'une table pour les afficher
-	 *
-	 * @param obj
-	 */
-	public abstract void display();
-
 }
