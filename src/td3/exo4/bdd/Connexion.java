@@ -71,4 +71,14 @@ public class Connexion {
 
 		return infoAcces;
 	}
+	
+	public static void close(){
+		if (connexion !=null){
+			try {
+				connexion.close();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
 }

@@ -71,6 +71,6 @@ public class Main {
 		// Récupération d'un objet devise depuis la base
 		Devise db = daodevise.getByNom("ROUBLE");
 
-
+		Connexion.close();
 	}
 }

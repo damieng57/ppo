@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
-import td3.exo4.bdd.Connexion;
 import td3.exo4.bdd.Devise;
 import td3.exo4.bdd.Portefeuille;
 
@@ -52,11 +51,13 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 		String requeteSurId = "SELECT id_portefeuille, nom_portefeuille FROM Portefeuille WHERE id_portefeuille=?";
 
 		Portefeuille portefeuille = null;
+		PreparedStatement requete = null;
+		ResultSet resultat = null;
 		try {
 			// Recherche du nom dans la base de données
-			PreparedStatement requete = connexion.prepareStatement(requeteSurId, Statement.RETURN_GENERATED_KEYS);
+			requete = connexion.prepareStatement(requeteSurId, Statement.RETURN_GENERATED_KEYS);
 			requete.setInt(1, id);
-			ResultSet resultat = requete.executeQuery();
+			resultat = requete.executeQuery();
 
 			if (resultat.next()) {
 				// On crée le portefeuille avec son id et son nom
@@ -77,6 +78,9 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 
 		} catch (SQLException e) {
 			System.out.println("Erreur SQL : " + e.getMessage());
+		} finally {
+			try { if (resultat != null) { resultat.close();}} catch (SQLException e) {}
+			try { if (requete != null) { requete.close();}} catch (SQLException e) {}
 		}
 
 		return null;
@@ -101,11 +105,13 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 		String requeteSurNom = "SELECT id_portefeuille, nom_portefeuille FROM Portefeuille WHERE nom_portefeuille=?";
 
 		Portefeuille portefeuille = null;
+		PreparedStatement requete = null;
+		ResultSet resultat = null;
 		try {
 			// Recherche du nom dans la base de données
-			PreparedStatement requete = connexion.prepareStatement(requeteSurNom, Statement.RETURN_GENERATED_KEYS);
+			requete = connexion.prepareStatement(requeteSurNom, Statement.RETURN_GENERATED_KEYS);
 			requete.setString(1, nom);
-			ResultSet resultat = requete.executeQuery();
+			resultat = requete.executeQuery();
 
 			if (resultat.next()) {
 				// On crée le portefeuille avec son id et son nom
@@ -122,10 +128,13 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 					portefeuille.mettreDeviseDansPortefeuille(resultat.getString(3), resultat.getFloat(4));
 				}
 				return portefeuille;
-			}
+			} 
 
 		} catch (SQLException e) {
 			System.out.println("Erreur SQL : " + e.getMessage());
+		} finally {
+			try { if (resultat != null) { resultat.close();}} catch (SQLException e) {}
+			try { if (requete != null) { requete.close();}} catch (SQLException e) {}
 		}
 
 		return null;
@@ -154,14 +163,16 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 		// Update de la table contenu
 		String requeteMiseAjoutContenu = "UPDATE Contenu SET montant=? WHERE id_contenu=?";
 
+		PreparedStatement requete = null;
+		ResultSet resultat = null;
+		
 		try {
 			// On effectue la connexion
-			connexion = Connexion.getInstance();
+			//connexion = Connexion.getInstance();
 			int idGeneratePortefeuille = 0;
 			int idGenerateDevise = 0;
 			int idGenerateContenu = 0;
-			PreparedStatement requete;
-			ResultSet resultat;
+
 
 			// Ajout du portefeuille dans la table portefeuille
 			// Recherche du portefeuille en base suivant le nom
@@ -232,6 +243,9 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 
 		} catch (SQLException | NullPointerException e) {
 			System.out.println("Erreur SQL : " + e.getMessage());
+		} finally {
+			try { if (resultat != null) { resultat.close();}} catch (SQLException e) {}
+			try { if (requete != null) { requete.close();}} catch (SQLException e) {}
 		}
 	}
 
@@ -251,6 +265,8 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 				+ "AND Devise.nom_devise=? "
 				+ "AND Devise.id_devise=Contenu.id_devise "
 				+ "AND Portefeuille.id_portefeuille=Contenu.id_portefeuille";
+		
+		PreparedStatement requete = null;
 
 		// Si id de l'objet est supérieur à -1, il est synchro avec la base
 		// On peut faire l'update.
@@ -264,7 +280,7 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 					Devise cle = entry.getKey();
 					Double valeur = entry.getValue();
 
-					PreparedStatement requete = connexion.prepareStatement(requeteUpdate);
+					requete = connexion.prepareStatement(requeteUpdate);
 
 					requete.setDouble(1, valeur);
 					requete.setString(2, obj.getNomPortefeuille());
@@ -276,6 +292,8 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 			} catch (SQLException e) {
 				e.printStackTrace();
 				//System.out.println("Erreur SQL : " + e.getMessage());
+			} finally {
+				try { if (requete != null) { requete.close();}} catch (SQLException e) {}
 			}
 		} else {
 			// Si l'id est à -1, on fait une recherche pour voir si
@@ -306,11 +324,13 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 
 		String requeteDelete = "DELETE FROM Portefeuille WHERE id_portefeuille=?";
 
+		PreparedStatement requete = null;
+		
 		if (obj.getIdPortefeuille() > -1) {
 			// Si l'id est supérieur à -1, on fait la suppression de l'id selectionné
 			try {
 				// On supprime d'abord les éléments dans contenu dépendant d'un portefeuille
-				PreparedStatement requete = connexion.prepareStatement(requeteDeleteContenu);
+				requete = connexion.prepareStatement(requeteDeleteContenu);
 				requete.setInt(1, this.getByNom(obj.getNomPortefeuille()).getIdPortefeuille());
 				requete.execute();
 
@@ -321,6 +341,8 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 			} catch (SQLException e) {
 				e.printStackTrace();
 				//System.out.println("Erreur SQL : " + e.getMessage());
+			} finally {
+				try { if (requete != null) { requete.close();}} catch (SQLException e) {}
 			}
 		} else {
 			// On recherche par nom
@@ -332,5 +354,34 @@ public class MySqlDAOPortefeuille extends DAO<Portefeuille> {
 			} // Sinon, c'est qu'il n'y rien à supprimer
 		}
 	}
+	
+	
+	@Override
+	public void display() {
+		String requeteDisplayContenu = "SELECT * FROM Portefeuille, Devise, Contenu "
+				+ "WHERE Portefeuille.id_portefeuille=Contenu.id_portefeuille "
+				+ "AND Devise.id_devise=Contenu.id_devise";
 
+		String requeteDisplayPortefeuille = "SELECT * FROM Portefeuille";
+
+		PreparedStatement requete = null;
+		ResultSet resultat = null;
+		
+
+			try {
+				// On supprime d'abord les éléments dans contenu dépendant d'un portefeuille
+				requete = connexion.prepareStatement(requeteDisplayPortefeuille);
+				resultat = requete.executeQuery();
+				
+				while (resultat.next()) {
+					System.out.println(resultat.next());
+				}
+
+			} catch (SQLException e) {
+				System.out.println("Erreur SQL : " + e.getMessage());
+			} finally {
+				try { if (resultat != null) { resultat.close();}} catch (SQLException e) {}
+				try { if (requete != null) { requete.close();}} catch (SQLException e) {}
+			}
+	}
 }
